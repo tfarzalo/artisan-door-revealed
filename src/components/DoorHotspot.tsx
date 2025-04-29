@@ -45,7 +45,7 @@ const DoorHotspot: React.FC<DoorHotspotProps> = ({
         <span className="text-white text-xs font-bold">{isActive ? "×" : "+"}</span>
       </button>
       
-      {/* Hotspot content */}
+      {/* Hotspot content - magazine style */}
       <div
         className={cn(
           "hotspot-content transition-all duration-300",
@@ -59,8 +59,10 @@ const DoorHotspot: React.FC<DoorHotspotProps> = ({
           right: x > 50 ? "0" : "auto",
           minWidth: "180px",
           maxWidth: "200px",
+          borderTop: "2px solid #B8860B",
         }}
       >
+        <span className="text-luxury-accent text-xs font-medium uppercase tracking-wider">Feature</span>
         <h4 className="text-luxury-text text-base font-serif mb-1">{title}</h4>
         <p className="text-luxury-text/80 text-xs">{description}</p>
       </div>

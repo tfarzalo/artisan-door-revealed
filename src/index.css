@@ -122,7 +122,7 @@
   }
 
   .showcase-container {
-    @apply relative max-w-4xl mx-auto my-8 overflow-hidden;
+    @apply relative overflow-hidden;
   }
 
   .luxury-gradient {
@@ -131,5 +131,18 @@
 
   .doorway {
     @apply relative mx-auto overflow-hidden rounded-md shadow-xl;
+  }
+  
+  /* Magazine-style components */
+  .magazine-caption {
+    @apply text-xs text-luxury-text/70 italic border-l-2 border-luxury-accent pl-2;
+  }
+  
+  .magazine-heading {
+    @apply text-2xl md:text-3xl font-serif leading-tight;
+  }
+  
+  .magazine-subheading {
+    @apply text-sm uppercase tracking-wider text-luxury-accent font-medium;
   }
 }
