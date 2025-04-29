@@ -32,7 +32,7 @@ const Index = () => {
                 </div>
               </div>
               
-              <div className="md:w-1/2 showcase-container animate-scale-in">
+              <div className="md:w-1/2 md:max-w-xs showcase-container animate-scale-in">
                 <DoorShowcase />
               </div>
             </div>
@@ -50,7 +50,7 @@ const Index = () => {
             </p>
             
             <div className="flex justify-center">
-              <div className="max-w-3xl w-full">
+              <div className="max-w-xs w-full">
                 <DoorShowcase />
               </div>
             </div>

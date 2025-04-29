@@ -57,11 +57,12 @@ const DoorHotspot: React.FC<DoorHotspotProps> = ({
           top: "calc(100% + 10px)",
           left: x > 50 ? "auto" : "0",
           right: x > 50 ? "0" : "auto",
-          minWidth: "220px",
+          minWidth: "180px",
+          maxWidth: "200px",
         }}
       >
-        <h4 className="text-luxury-text text-lg font-serif mb-2">{title}</h4>
-        <p className="text-luxury-text/80 text-sm">{description}</p>
+        <h4 className="text-luxury-text text-base font-serif mb-1">{title}</h4>
+        <p className="text-luxury-text/80 text-xs">{description}</p>
       </div>
     </div>
   );

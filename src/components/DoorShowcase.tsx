@@ -54,18 +54,18 @@ const DoorShowcase: React.FC = () => {
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
   return (
-    <div className="doorway w-full max-w-3xl aspect-[9/16]">
+    <div className="doorway w-full max-w-md aspect-[9/16] mx-auto">
       <div className="relative w-full h-full">
         {/* The main door image */}
         <div className="absolute inset-0 bg-wood-dark rounded-t-lg">
           {/* Door frame */}
-          <div className="absolute inset-0 border-8 md:border-12 border-wood-walnut rounded-t-lg">
+          <div className="absolute inset-0 border-6 md:border-8 border-wood-walnut rounded-t-lg">
             {/* Door panel */}
-            <div className="absolute inset-2 md:inset-4 bg-gradient-to-b from-wood to-wood-dark rounded-sm flex items-center justify-center">
+            <div className="absolute inset-2 md:inset-3 bg-gradient-to-b from-wood to-wood-dark rounded-sm flex items-center justify-center">
               {/* Door center panel with decorative element */}
-              <div className="w-2/3 h-4/5 border-2 border-metal-brass rounded-sm flex items-center justify-center">
-                <div className="w-full h-full m-4 bg-wood bg-opacity-50 flex items-center justify-center">
-                  <div className="w-16 h-16 md:w-24 md:h-24 text-metal-brass opacity-50">
+              <div className="w-2/3 h-4/5 border-1 md:border-2 border-metal-brass rounded-sm flex items-center justify-center">
+                <div className="w-full h-full m-2 md:m-4 bg-wood bg-opacity-50 flex items-center justify-center">
+                  <div className="w-12 h-12 md:w-16 md:h-16 text-metal-brass opacity-50">
                     {/* Decorative element */}
                     <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
                       <path
@@ -90,7 +90,7 @@ const DoorShowcase: React.FC = () => {
           </div>
           
           {/* Door handle */}
-          <div className="absolute right-8 top-1/2 transform -translate-y-1/2 w-4 h-16 bg-metal-brass rounded-full"></div>
+          <div className="absolute right-6 top-1/2 transform -translate-y-1/2 w-2 md:w-3 h-10 md:h-12 bg-metal-brass rounded-full"></div>
           
           {/* Hotspots */}
           {doorHotspots.map((hotspot) => (
