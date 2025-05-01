@@ -4,7 +4,7 @@ import React from "react";
 export const DoorPlaceholder: React.FC = () => {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="relative w-[80px] h-[160px] bg-gradient-to-r from-wood-dark via-wood to-wood-light rounded-t-lg overflow-hidden shadow-md">
+      <div className="relative w-[80px] h-[160px] bg-gradient-to-r from-wood-dark via-wood to-wood-light rounded-t-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg">
         {/* Door handle */}
         <div className="absolute right-3 top-1/2 w-2 h-6 bg-[#B8860B] rounded-full"></div>
         
