@@ -40,7 +40,7 @@ export async function getDoorImages(doorId: string) {
     .from('door_images')
     .select('*')
     .eq('door_id', doorId)
-    .order('order');
+    .order('display_order');
 
   if (error) {
     console.error(`Error fetching images for door (${doorId}):`, error);

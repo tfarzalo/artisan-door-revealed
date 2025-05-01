@@ -17,7 +17,7 @@ export interface Database {
           name: string
           description: string | null
           modelPath: string
-          order: number
+          display_order: number
           created_at: string
           updated_at: string | null
         }
@@ -27,7 +27,7 @@ export interface Database {
           name: string
           description?: string | null
           modelPath: string
-          order?: number
+          display_order?: number
           created_at?: string
           updated_at?: string | null
         }
@@ -37,7 +37,7 @@ export interface Database {
           name?: string
           description?: string | null
           modelPath?: string
-          order?: number
+          display_order?: number
           created_at?: string
           updated_at?: string | null
         }
@@ -50,7 +50,7 @@ export interface Database {
           name: string
           description: string | null
           image: string | null
-          order: number
+          display_order: number
           created_at: string
           updated_at: string | null
         }
@@ -61,7 +61,7 @@ export interface Database {
           name: string
           description?: string | null
           image?: string | null
-          order?: number
+          display_order?: number
           created_at?: string
           updated_at?: string | null
         }
@@ -72,7 +72,7 @@ export interface Database {
           name?: string
           description?: string | null
           image?: string | null
-          order?: number
+          display_order?: number
           created_at?: string
           updated_at?: string | null
         }
@@ -200,7 +200,7 @@ export interface Database {
           door_id: string
           image_url: string
           alt_text: string | null
-          order: number
+          display_order: number
           created_at: string
         }
         Insert: {
@@ -208,7 +208,7 @@ export interface Database {
           door_id: string
           image_url: string
           alt_text?: string | null
-          order?: number
+          display_order?: number
           created_at?: string
         }
         Update: {
@@ -216,7 +216,7 @@ export interface Database {
           door_id?: string
           image_url?: string
           alt_text?: string | null
-          order?: number
+          display_order?: number
           created_at?: string
         }
       }

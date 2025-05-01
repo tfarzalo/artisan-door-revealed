@@ -5,7 +5,7 @@ export async function getCollections() {
   const { data, error } = await supabase
     .from('collections')
     .select('*')
-    .order('order');
+    .order('display_order');
 
   if (error) {
     console.error('Error fetching collections:', error);
@@ -35,7 +35,7 @@ export async function getSubcollectionsByCollectionId(collectionId: string) {
     .from('subcollections')
     .select('*')
     .eq('collection_id', collectionId)
-    .order('order');
+    .order('display_order');
 
   if (error) {
     console.error(`Error fetching subcollections for collection (${collectionId}):`, error);
