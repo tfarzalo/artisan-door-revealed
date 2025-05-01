@@ -1,15 +1,9 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Search, Filter, ChevronLeft, ChevronRight, Menu } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { 
-  Card, 
-  CardContent,
-  CardFooter 
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import DoorCollection from "@/components/DoorCollection";
+import AppHeader from "@/components/AppHeader";
 
 const collections = [
   { id: "signature", name: "Signature Collection", modelPath: "/models/signature-door.glb" },
@@ -21,64 +15,10 @@ const collections = [
 ];
 
 const Index = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
-    <div className="flex flex-col min-h-screen bg-luxury-bg text-luxury-text">
-      {/* App-like header */}
-      <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-white bg-opacity-95 backdrop-blur-sm border-b border-luxury-text/10 flex justify-between items-center">
-        <div className="flex items-center">
-          <button 
-            className="p-2 hover:bg-luxury-text/5 rounded-full transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <Menu className="w-5 h-5 text-luxury-text/80" />
-          </button>
-          <h1 className="text-lg font-serif ml-4">Artisan Doors</h1>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Link to="/search">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Search className="w-5 h-5 text-luxury-text/80" />
-            </Button>
-          </Link>
-          <Link to="/filter">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Filter className="w-5 h-5 text-luxury-text/80" />
-            </Button>
-          </Link>
-        </div>
-      </header>
-      
-      {/* Side menu */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="p-5">
-          <h2 className="text-xl font-serif mb-6">Browse</h2>
-          <ul className="space-y-4">
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/" className="text-luxury-text hover:text-luxury-accent transition-colors">Collections</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/search" className="text-luxury-text hover:text-luxury-accent transition-colors">Search</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/filter" className="text-luxury-text hover:text-luxury-accent transition-colors">Filter</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/favorites" className="text-luxury-text hover:text-luxury-accent transition-colors">Favorites</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-      
-      {/* Overlay when menu is open */}
-      {menuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-30 z-40"
-          onClick={() => setMenuOpen(false)}
-        ></div>
-      )}
+    <div className="flex flex-col min-h-screen bg-white text-luxury-text">
+      {/* App-like header with search */}
+      <AppHeader />
       
       <main className="flex-1 pt-16 pb-16 px-5">
         <div className="max-w-4xl mx-auto">
