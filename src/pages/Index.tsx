@@ -40,7 +40,10 @@ const Index = () => {
             <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10 overflow-hidden">
               <CardContent className="p-6">
                 <div className="h-64 flex items-center justify-center bg-secondary/10 rounded-md">
-                  <ModelViewer modelPath={temporaryCollection.modelPath} />
+                  <ModelViewer 
+                    modelPath={temporaryCollection.modelPath}
+                    posterPath="https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
+                  />
                 </div>
               </CardContent>
               <CardFooter className="pb-4 flex flex-col items-center gap-2">
