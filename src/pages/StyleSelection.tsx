@@ -1,28 +1,59 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Search, Filter, ChevronLeft, ChevronRight, Menu } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Link, useParams } from "react-router-dom";
+import { ChevronLeft, Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { 
   Card, 
   CardContent,
   CardFooter 
 } from "@/components/ui/card";
-import DoorCollection from "@/components/DoorCollection";
 
-const collections = [
-  { id: "signature", name: "Signature Collection", modelPath: "/models/signature-door.glb" },
-  { id: "traditional", name: "Traditional Collection", modelPath: "/models/traditional-door.glb" },
-  { id: "modern", name: "Modern Collection", modelPath: "/models/modern-door.glb" },
-  { id: "fullview", name: "Full View Collection", modelPath: "/models/fullview-door.glb" },
-  { id: "port", name: "Port Collection", modelPath: "/models/port-door.glb" },
-  { id: "custom", name: "Custom Designed", modelPath: "/models/custom-door.glb" },
-];
+interface DoorStyle {
+  id: string;
+  name: string;
+  icon: string;
+}
 
-const Index = () => {
+// Mock data - would be fetched from API in a real app
+const stylesData: Record<string, DoorStyle[]> = {
+  alexandria: [
+    { id: "modern-farmhouse", name: "Modern Farmhouse", icon: "🏠" },
+    { id: "contemporary", name: "Contemporary", icon: "🏙️" },
+    { id: "transitional", name: "Transitional", icon: "🏗️" },
+    { id: "traditional", name: "Traditional", icon: "🏛️" },
+  ],
+  tiffany: [
+    { id: "art-deco", name: "Art Deco", icon: "🎭" },
+    { id: "classic", name: "Classic", icon: "🏛️" },
+    { id: "victorian", name: "Victorian", icon: "🏰" },
+  ],
+  // Add more styles for other subcollections
+};
+
+const subcollectionNames: Record<string, string> = {
+  alexandria: "Alexandria",
+  tiffany: "Tiffany",
+  victoria: "Victoria",
+  majestic: "Majestic",
+  grandeur: "Grandeur",
+  prestige: "Prestige",
+  colonial: "Colonial",
+  craftsman: "Craftsman",
+  tudor: "Tudor",
+  minimalist: "Minimalist",
+  contemporary: "Contemporary",
+  industrial: "Industrial",
+};
+
+const StyleSelection = () => {
+  const { collectionId, subcollectionId } = useParams<{ collectionId: string, subcollectionId: string }>();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  
+  const collection = collectionId || "";
+  const subcollection = subcollectionId || "";
+  const subcollectionName = subcollectionNames[subcollection] || "Subcollection";
+  const styles = stylesData[subcollection] || [];
 
   return (
     <div className="flex flex-col min-h-screen bg-luxury-bg text-luxury-text">
@@ -43,15 +74,10 @@ const Index = () => {
               <Search className="w-5 h-5 text-luxury-text/80" />
             </Button>
           </Link>
-          <Link to="/filter">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Filter className="w-5 h-5 text-luxury-text/80" />
-            </Button>
-          </Link>
         </div>
       </header>
       
-      {/* Side menu */}
+      {/* Side menu (same as previous pages) */}
       <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-5">
           <h2 className="text-xl font-serif mb-6">Browse</h2>
@@ -82,27 +108,28 @@ const Index = () => {
       
       <main className="flex-1 pt-16 pb-16 px-5">
         <div className="max-w-4xl mx-auto">
-          {/* Title Section */}
-          <div className="mb-8 mt-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-serif mb-3">Select a Collection</h2>
-            <p className="text-luxury-text/70 max-w-md mx-auto">
-              Browse our curated door collections or search for specific styles
-            </p>
+          {/* Back button and title */}
+          <div className="flex items-center mt-4 mb-4">
+            <Link to={`/collection/${collection}`}>
+              <Button variant="ghost" size="icon" className="rounded-full mr-2">
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+            </Link>
+            <h2 className="text-2xl font-serif">{subcollectionName} Styles</h2>
           </div>
           
-          {/* Collection Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {collections.map((collection) => (
-              <Link to={`/collection/${collection.id}`} key={collection.id}>
+          {/* Styles Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-6">
+            {styles.map((style) => (
+              <Link 
+                to={`/collection/${collection}/subcollection/${subcollection}/style/${style.id}`} 
+                key={style.id}
+              >
                 <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10">
-                  <CardContent className="p-4">
-                    <div className="h-48 flex items-center justify-center bg-secondary/20 rounded-md mb-3">
-                      <DoorCollection modelPath={collection.modelPath} />
-                    </div>
+                  <CardContent className="p-4 flex flex-col items-center">
+                    <div className="text-4xl mb-3">{style.icon}</div>
+                    <h3 className="text-center text-sm font-medium">{style.name}</h3>
                   </CardContent>
-                  <CardFooter className="pb-4">
-                    <h3 className="text-center w-full font-serif">{collection.name}</h3>
-                  </CardFooter>
                 </Card>
               </Link>
             ))}
@@ -110,7 +137,7 @@ const Index = () => {
         </div>
       </main>
       
-      {/* App-like bottom navigation */}
+      {/* App-like bottom navigation (same as previous pages) */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-luxury-text/10 px-5 py-2 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <Link to="/">
@@ -142,4 +169,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default StyleSelection;
