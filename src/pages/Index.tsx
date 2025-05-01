@@ -6,9 +6,18 @@ import DoorCollection from "@/components/DoorCollection";
 import AppHeader from "@/components/AppHeader";
 import { useCollections } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
+import ModelViewer from "@/components/ModelViewer";
 
 const Index = () => {
   const { data: collections, isLoading, error } = useCollections();
+
+  // Temporary collection with 3D model
+  const temporaryCollection = {
+    id: "temp-collection",
+    name: "Premium Door Collection",
+    slug: "premium",
+    modelPath: "98e46f9b-16aa-4369-a946-0326320ec7a0.glb",
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-luxury-text">
@@ -23,6 +32,27 @@ const Index = () => {
             <p className="text-luxury-text/70 max-w-md mx-auto">
               Browse our curated door collections or search for specific styles
             </p>
+          </div>
+          
+          {/* Featured Temporary Collection */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-serif mb-4 text-center">Featured Collection</h3>
+            <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10 overflow-hidden">
+              <CardContent className="p-6">
+                <div className="h-64 flex items-center justify-center bg-secondary/10 rounded-md">
+                  <ModelViewer modelPath={temporaryCollection.modelPath} />
+                </div>
+              </CardContent>
+              <CardFooter className="pb-4 flex flex-col items-center gap-2">
+                <h3 className="font-serif text-xl">{temporaryCollection.name}</h3>
+                <Link 
+                  to={`/collection/${temporaryCollection.slug}`}
+                  className="text-sm px-4 py-2 bg-luxury-accent text-white rounded-sm hover:bg-luxury-accent/90"
+                >
+                  Explore Collection
+                </Link>
+              </CardFooter>
+            </Card>
           </div>
           
           {/* Collection Grid */}

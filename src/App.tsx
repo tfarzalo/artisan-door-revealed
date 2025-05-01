@@ -12,6 +12,7 @@ import DoorOptions from "./pages/DoorOptions";
 import DoorDetail from "./pages/DoorDetail";
 import Search from "./pages/Search";
 import Filter from "./pages/Filter";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -45,6 +46,7 @@ const AnimatedRoutes = () => {
           <Route path="/door/:doorSlug" element={<DoorDetail />} />
           <Route path="/search" element={<Search />} />
           <Route path="/filter" element={<Filter />} />
+          <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
