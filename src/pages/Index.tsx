@@ -4,17 +4,12 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import DoorCollection from "@/components/DoorCollection";
 import AppHeader from "@/components/AppHeader";
-
-const collections = [
-  { id: "signature", name: "Signature Collection", modelPath: "/models/signature-door.glb" },
-  { id: "traditional", name: "Traditional Collection", modelPath: "/models/traditional-door.glb" },
-  { id: "modern", name: "Modern Collection", modelPath: "/models/modern-door.glb" },
-  { id: "fullview", name: "Full View Collection", modelPath: "/models/fullview-door.glb" },
-  { id: "port", name: "Port Collection", modelPath: "/models/port-door.glb" },
-  { id: "custom", name: "Custom Designed", modelPath: "/models/custom-door.glb" },
-];
+import { useCollections } from "@/hooks/useCollections";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
+  const { data: collections, isLoading, error } = useCollections();
+
   return (
     <div className="flex flex-col min-h-screen bg-white text-luxury-text">
       {/* App-like header with search */}
@@ -31,22 +26,41 @@ const Index = () => {
           </div>
           
           {/* Collection Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {collections.map((collection) => (
-              <Link to={`/collection/${collection.id}`} key={collection.id}>
-                <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10">
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <Card key={i} className="h-full border-luxury-text/10">
                   <CardContent className="p-4">
-                    <div className="h-48 flex items-center justify-center bg-secondary/20 rounded-md mb-3">
-                      <DoorCollection modelPath={collection.modelPath} />
-                    </div>
+                    <Skeleton className="h-48 w-full rounded-md" />
                   </CardContent>
                   <CardFooter className="pb-4">
-                    <h3 className="text-center w-full font-serif">{collection.name}</h3>
+                    <Skeleton className="h-6 w-32 mx-auto" />
                   </CardFooter>
                 </Card>
-              </Link>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : error ? (
+            <div className="text-center py-8 text-red-500">
+              An error occurred while fetching collections. Please try again later.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {collections?.map((collection) => (
+                <Link to={`/collection/${collection.slug}`} key={collection.id}>
+                  <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10">
+                    <CardContent className="p-4">
+                      <div className="h-48 flex items-center justify-center bg-secondary/20 rounded-md mb-3">
+                        <DoorCollection modelPath={collection.modelPath} />
+                      </div>
+                    </CardContent>
+                    <CardFooter className="pb-4">
+                      <h3 className="text-center w-full font-serif">{collection.name}</h3>
+                    </CardFooter>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </main>
       
