@@ -1,9 +1,17 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, Menu, Search as SearchIcon } from "lucide-react";
+import { Search as SearchIcon, FilterIcon, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 interface SearchResult {
   id: string;
@@ -53,7 +61,6 @@ const allResults: SearchResult[] = [
 ];
 
 const Search = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
@@ -83,79 +90,65 @@ const Search = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-luxury-bg text-luxury-text">
-      {/* App-like header */}
+    <div className="flex flex-col min-h-screen bg-white text-luxury-text">
+      {/* Integrated header with search bar */}
       <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-white bg-opacity-95 backdrop-blur-sm border-b border-luxury-text/10 flex justify-between items-center">
         <div className="flex items-center">
-          <button 
-            className="p-2 hover:bg-luxury-text/5 rounded-full transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <Menu className="w-5 h-5 text-luxury-text/80" />
-          </button>
-          <h1 className="text-lg font-serif ml-4">Artisan Doors</h1>
-        </div>
-        <div className="flex items-center">
           <Link to="/">
-            <Button variant="ghost" size="sm">
-              Home
-            </Button>
+            <h1 className="text-lg font-serif">Artisan Doors</h1>
           </Link>
+        </div>
+        
+        <div className="flex items-center flex-grow mx-4">
+          <form onSubmit={handleSearch} className="flex gap-2 flex-grow max-w-md mx-auto">
+            <div className="relative flex-grow">
+              <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input 
+                type="text" 
+                placeholder="Search doors, collections..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9 pr-3 w-full"
+              />
+            </div>
+            <Button type="submit" size="sm" variant="ghost" className="px-2">
+              Search
+            </Button>
+          </form>
+        </div>
+        
+        <div className="flex items-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="flex items-center gap-1">
+                <FilterIcon className="h-4 w-4" />
+                <span className="sr-only md:not-sr-only">Filter</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel>Filter By</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Collection</DropdownMenuItem>
+              <DropdownMenuItem>Style</DropdownMenuItem>
+              <DropdownMenuItem>Material</DropdownMenuItem>
+              <DropdownMenuItem>Size</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <Link to="/filter" className="w-full">
+                <Button variant="outline" size="sm" className="w-full mt-2">
+                  Advanced Filters
+                </Button>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </header>
       
-      {/* Side menu (same as previous pages) */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="p-5">
-          <h2 className="text-xl font-serif mb-6">Browse</h2>
-          <ul className="space-y-4">
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/" className="text-luxury-text hover:text-luxury-accent transition-colors">Collections</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/search" className="text-luxury-text hover:text-luxury-accent transition-colors">Search</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/filter" className="text-luxury-text hover:text-luxury-accent transition-colors">Filter</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/favorites" className="text-luxury-text hover:text-luxury-accent transition-colors">Favorites</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-      
-      {/* Overlay when menu is open */}
-      {menuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-30 z-40"
-          onClick={() => setMenuOpen(false)}
-        ></div>
-      )}
-      
-      <main className="flex-1 pt-16 pb-16 px-5">
+      <main className="flex-1 pt-16 pb-16 px-5 animate-fade-in">
         <div className="max-w-4xl mx-auto">
-          <div className="mt-6 mb-8">
-            <h2 className="text-2xl font-serif mb-4">Search</h2>
-            <form onSubmit={handleSearch} className="flex gap-2">
-              <Input 
-                type="text" 
-                placeholder="Search for doors, collections, styles..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-grow"
-              />
-              <Button type="submit">
-                <SearchIcon className="w-4 h-4 mr-2" />
-                Search
-              </Button>
-            </form>
-          </div>
-          
           {/* Search Results */}
           {searchResults.length > 0 ? (
             <div className="mt-6">
-              <h3 className="text-lg font-medium mb-4">Results</h3>
+              <h3 className="text-lg font-medium mb-4">Results ({searchResults.length})</h3>
               <div className="space-y-4">
                 {searchResults.map((result) => (
                   <Link to={getResultLink(result)} key={`${result.type}-${result.id}`}>
@@ -180,18 +173,18 @@ const Search = () => {
               </div>
             </div>
           ) : searchQuery ? (
-            <div className="text-center py-8 text-luxury-text/70">
+            <div className="text-center py-8 text-luxury-text/70 animate-fade-in">
               No results found for "{searchQuery}"
             </div>
           ) : (
-            <div className="text-center py-8 text-luxury-text/70">
+            <div className="text-center py-8 text-luxury-text/70 animate-fade-in">
               Enter a search term to find doors, collections, and styles
             </div>
           )}
         </div>
       </main>
       
-      {/* App-like bottom navigation (same as previous pages) */}
+      {/* App-like bottom navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-luxury-text/10 px-5 py-2 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <Link to="/">
