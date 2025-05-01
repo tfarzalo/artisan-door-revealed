@@ -50,6 +50,7 @@ export interface Database {
           name: string
           description: string | null
           image: string | null
+          modelPath: string | null
           display_order: number
           created_at: string
           updated_at: string | null
@@ -61,6 +62,7 @@ export interface Database {
           name: string
           description?: string | null
           image?: string | null
+          modelPath?: string | null
           display_order?: number
           created_at?: string
           updated_at?: string | null
@@ -72,6 +74,7 @@ export interface Database {
           name?: string
           description?: string | null
           image?: string | null
+          modelPath?: string | null
           display_order?: number
           created_at?: string
           updated_at?: string | null
@@ -246,3 +249,4 @@ export interface Database {
     }
   }
 }
+

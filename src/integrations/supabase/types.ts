@@ -274,6 +274,7 @@ export type Database = {
           display_order: number
           id: string
           image: string | null
+          modelpath: string | null
           name: string
           slug: string
           updated_at: string | null
@@ -285,6 +286,7 @@ export type Database = {
           display_order?: number
           id?: string
           image?: string | null
+          modelpath?: string | null
           name: string
           slug: string
           updated_at?: string | null
@@ -296,6 +298,7 @@ export type Database = {
           display_order?: number
           id?: string
           image?: string | null
+          modelpath?: string | null
           name?: string
           slug?: string
           updated_at?: string | null

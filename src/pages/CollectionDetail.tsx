@@ -8,53 +8,20 @@ import {
   CardContent,
   CardFooter 
 } from "@/components/ui/card";
-
-interface SubCollection {
-  id: string;
-  name: string;
-  image: string;
-}
-
-// Mock data - would be fetched from API in a real app
-const subCollectionsData: Record<string, SubCollection[]> = {
-  signature: [
-    { id: "alexandria", name: "Alexandria", image: "/images/alexandria.jpg" },
-    { id: "tiffany", name: "Tiffany", image: "/images/tiffany.jpg" },
-    { id: "victoria", name: "Victoria", image: "/images/victoria.jpg" },
-    { id: "majestic", name: "Majestic", image: "/images/majestic.jpg" },
-    { id: "grandeur", name: "Grandeur", image: "/images/grandeur.jpg" },
-    { id: "prestige", name: "Prestige", image: "/images/prestige.jpg" },
-  ],
-  traditional: [
-    { id: "colonial", name: "Colonial", image: "/images/colonial.jpg" },
-    { id: "craftsman", name: "Craftsman", image: "/images/craftsman.jpg" },
-    { id: "tudor", name: "Tudor", image: "/images/tudor.jpg" },
-  ],
-  modern: [
-    { id: "minimalist", name: "Minimalist", image: "/images/minimalist.jpg" },
-    { id: "contemporary", name: "Contemporary", image: "/images/contemporary.jpg" },
-    { id: "industrial", name: "Industrial", image: "/images/industrial.jpg" },
-  ],
-  // Add more subcollections for other collections as needed
-};
-
-const collectionNames: Record<string, string> = {
-  signature: "Signature Collection",
-  traditional: "Traditional Collection",
-  modern: "Modern Collection",
-  fullview: "Full View Collection",
-  port: "Port Collection",
-  custom: "Custom Designed",
-};
+import { useCollectionBySlug, useSubcollectionsByCollectionId } from "@/hooks/useCollections";
+import { Skeleton } from "@/components/ui/skeleton";
+import ModelViewer from "@/components/ModelViewer";
 
 const CollectionDetail = () => {
   const { collectionId } = useParams<{ collectionId: string }>();
   const [menuOpen, setMenuOpen] = useState(false);
   
   const collection = collectionId || "";
-  const collectionName = collectionNames[collection] || "Collection";
-  const subCollections = subCollectionsData[collection] || [];
+  const { data: collectionData, isLoading: isCollectionLoading } = useCollectionBySlug(collection);
+  const { data: subCollections, isLoading: isSubcollectionsLoading } = useSubcollectionsByCollectionId(collectionData?.id);
 
+  const isLoading = isCollectionLoading || isSubcollectionsLoading;
+  
   return (
     <div className="flex flex-col min-h-screen bg-luxury-bg text-luxury-text">
       {/* App-like header */}
@@ -115,33 +82,59 @@ const CollectionDetail = () => {
                 <ChevronLeft className="w-5 h-5" />
               </Button>
             </Link>
-            <h2 className="text-2xl font-serif">{collectionName}</h2>
+            <h2 className="text-2xl font-serif">{collectionData?.name || "Collection"}</h2>
           </div>
           
           {/* Subcollection Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            {subCollections.map((subCollection) => (
-              <Link to={`/collection/${collection}/subcollection/${subCollection.id}`} key={subCollection.id}>
-                <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10">
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+              {[1, 2, 3].map((index) => (
+                <Card key={index} className="h-full border-luxury-text/10">
                   <CardContent className="p-4">
-                    <div className="h-40 flex items-center justify-center bg-secondary/20 rounded-md mb-3">
-                      <div className="relative w-[80px] h-[160px] bg-gradient-to-r from-wood-dark via-wood to-wood-light rounded-t-lg overflow-hidden shadow-md transform scale-75">
-                        {/* Door handle */}
-                        <div className="absolute right-3 top-1/2 w-2 h-6 bg-[#B8860B] rounded-full"></div>
-                        
-                        {/* Door panels - different for each subcollection */}
-                        <div className="absolute top-2 left-2 right-2 bottom-2 border-2 border-wood-dark/30 rounded"></div>
-                        <div className="absolute top-4 left-4 right-4 bottom-4 border border-wood-dark/20 rounded"></div>
-                      </div>
-                    </div>
+                    <Skeleton className="h-40 w-full rounded-md mb-3" />
                   </CardContent>
                   <CardFooter className="pb-4">
-                    <h3 className="text-center w-full font-serif">{subCollection.name}</h3>
+                    <Skeleton className="h-6 w-32 mx-auto" />
                   </CardFooter>
                 </Card>
-              </Link>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : subCollections && subCollections.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+              {subCollections.map((subCollection) => (
+                <Link to={`/collection/${collection}/subcollection/${subCollection.slug}`} key={subCollection.id}>
+                  <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10">
+                    <CardContent className="p-4">
+                      <div className="h-40 flex items-center justify-center bg-secondary/20 rounded-md mb-3 relative">
+                        {subCollection.modelPath ? (
+                          <ModelViewer
+                            modelPath={subCollection.modelPath}
+                            className="w-full h-full"
+                          />
+                        ) : (
+                          <div className="relative w-[80px] h-[160px] bg-gradient-to-r from-wood-dark via-wood to-wood-light rounded-t-lg overflow-hidden shadow-md transform scale-75">
+                            {/* Door handle */}
+                            <div className="absolute right-3 top-1/2 w-2 h-6 bg-[#B8860B] rounded-full"></div>
+                            
+                            {/* Door panels - different for each subcollection */}
+                            <div className="absolute top-2 left-2 right-2 bottom-2 border-2 border-wood-dark/30 rounded"></div>
+                            <div className="absolute top-4 left-4 right-4 bottom-4 border border-wood-dark/20 rounded"></div>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                    <CardFooter className="pb-4">
+                      <h3 className="text-center w-full font-serif">{subCollection.name}</h3>
+                    </CardFooter>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p>No subcollections found for this collection.</p>
+            </div>
+          )}
         </div>
       </main>
       
