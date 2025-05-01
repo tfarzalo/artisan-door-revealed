@@ -110,11 +110,11 @@
 
 @layer components {
   .hotspot {
-    @apply w-4 h-4 md:w-5 md:h-5 rounded-full bg-luxury-accent bg-opacity-50 cursor-pointer absolute z-10 flex items-center justify-center;
+    @apply w-4 h-4 md:w-5 md:h-5 rounded-full bg-dsa-orange bg-opacity-50 cursor-pointer absolute z-10 flex items-center justify-center;
   }
 
   .hotspot::before {
-    @apply content-[''] absolute w-full h-full rounded-full bg-luxury-accent animate-hotspot-pulse;
+    @apply content-[''] absolute w-full h-full rounded-full bg-dsa-orange animate-hotspot-pulse;
   }
 
   .hotspot-content {
@@ -126,7 +126,7 @@
   }
 
   .luxury-gradient {
-    @apply bg-gradient-to-r from-wood-light via-wood to-wood-dark text-transparent bg-clip-text;
+    @apply bg-gradient-to-r from-dsa-blue to-dsa-orange text-transparent bg-clip-text;
   }
 
   .doorway {
@@ -135,7 +135,7 @@
   
   /* Magazine-style components */
   .magazine-caption {
-    @apply text-xs text-luxury-text/70 italic border-l-2 border-luxury-accent pl-2;
+    @apply text-xs text-luxury-text/70 italic border-l-2 border-dsa-orange pl-2;
   }
   
   .magazine-heading {
@@ -143,6 +143,6 @@
   }
   
   .magazine-subheading {
-    @apply text-sm uppercase tracking-wider text-luxury-accent font-medium;
+    @apply text-sm uppercase tracking-wider text-dsa-orange font-medium;
   }
 }

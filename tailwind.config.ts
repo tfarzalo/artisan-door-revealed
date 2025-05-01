@@ -56,12 +56,16 @@ export default {
         luxury: {
           text: "#1A1F2C",
           bg: "#F9F8F4",
-          accent: "#B8860B",
+          accent: "#F97316", // Updated to orange from logo
         },
         wood: {
           light: "#D2B48C",
           DEFAULT: "#A0522D",
           dark: "#5D3721",
+        },
+        dsa: {
+          blue: "#2A3A64", // Navy blue from logo
+          orange: "#F97316", // Orange from logo
         },
         sidebar: {
           background: "hsl(var(--sidebar-background))",

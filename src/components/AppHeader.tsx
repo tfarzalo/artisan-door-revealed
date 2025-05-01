@@ -32,7 +32,11 @@ const AppHeader: React.FC<AppHeaderProps> = ({ searchEnabled = true }) => {
     <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-white bg-opacity-95 backdrop-blur-sm border-b border-luxury-text/10 flex justify-between items-center">
       <div className="flex items-center">
         <Link to="/">
-          <h1 className="text-lg font-serif">Artisan Doors</h1>
+          <img 
+            src="/lovable-uploads/c3b81731-3372-46e3-937e-fffe2146a4ba.png" 
+            alt="DSA Master Crafted Doors" 
+            className="h-8"
+          />
         </Link>
       </div>
       
