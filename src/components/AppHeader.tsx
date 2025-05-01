@@ -29,7 +29,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ searchEnabled = true }) => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-white bg-opacity-95 backdrop-blur-sm border-b border-luxury-text/10 flex justify-between items-center">
+    <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-gray-50 border-b border-luxury-text/10 flex justify-between items-center">
       <div className="flex items-center">
         <Link to="/">
           <img 

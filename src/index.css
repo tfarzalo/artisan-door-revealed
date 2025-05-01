@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    --background: 36 33% 97%;
+    --background: 0 0% 100%; /* Updated to pure white */
     --foreground: 20 14% 4%;
 
     --card: 0 0% 100%;
@@ -84,7 +84,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-white text-foreground font-sans; /* Updated to pure white */
   }
 
   h1, h2, h3, h4, h5, h6 {
