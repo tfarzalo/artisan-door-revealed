@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -5,17 +6,16 @@ import DoorCollection from "@/components/DoorCollection";
 import AppHeader from "@/components/AppHeader";
 import { useCollections } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
-import ModelViewer from "@/components/ModelViewer";
+import DoorPhotos from "@/components/DoorPhotos";
 
 const Index = () => {
   const { data: collections, isLoading, error } = useCollections();
 
-  // Temporary collection with 3D model
+  // Temporary collection with door photos
   const temporaryCollection = {
     id: "temp-collection",
     name: "Premium Door Collection",
     slug: "premium",
-    modelPath: "98e46f9b-16aa-4369-a946-0326320ec7a0.glb",
   };
 
   return (
@@ -38,11 +38,8 @@ const Index = () => {
             <h3 className="text-2xl font-serif mb-4 text-center">Featured Collection</h3>
             <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10 overflow-hidden">
               <CardContent className="p-6">
-                <div className="h-64 flex items-center justify-center bg-secondary/10 rounded-md relative">
-                  <ModelViewer 
-                    modelPath={temporaryCollection.modelPath}
-                    posterPath="https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"
-                  />
+                <div className="flex items-center justify-center bg-secondary/10 rounded-md">
+                  <DoorPhotos />
                 </div>
               </CardContent>
               <CardFooter className="pb-4 flex flex-col items-center gap-2">
