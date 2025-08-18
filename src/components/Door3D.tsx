@@ -58,7 +58,7 @@ const doorHotspots: Hotspot[] = [
 
 const DoorModel: React.FC = () => {
   const { scene } = useGLTF('https://fcakeqzotfpugrivavji.supabase.co/storage/v1/object/public/media/door-test-2.gltf');
-  return <primitive object={scene} scale={[1, 1, 1]} />;
+  return <primitive object={scene} scale={[2, 2, 2]} position={[0, -1, 0]} />;
 };
 
 const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setActiveHotspot: (id: string | null) => void }> = ({ rotation, activeHotspot, setActiveHotspot }) => {
@@ -159,20 +159,24 @@ export const Door3D: React.FC = () => {
 
   return (
     <div 
-      className="w-full h-full cursor-grab active:cursor-grabbing"
+      className="w-full h-full cursor-grab active:cursor-grabbing relative"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
-        <ambientLight intensity={0.4} />
+      <Canvas 
+        camera={{ position: [0, 0, 4], fov: 60 }}
+        className="w-full h-full"
+        style={{ background: 'transparent' }}
+      >
+        <ambientLight intensity={0.6} />
         <directionalLight 
           position={[5, 5, 5]} 
-          intensity={0.8} 
+          intensity={1.0} 
           castShadow 
         />
-        <directionalLight position={[-5, 5, 5]} intensity={0.3} />
+        <directionalLight position={[-5, 5, 5]} intensity={0.4} />
         
         <DoorMesh rotation={rotation} activeHotspot={activeHotspot} setActiveHotspot={setActiveHotspot} />
       </Canvas>

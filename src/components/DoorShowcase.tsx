@@ -56,7 +56,7 @@ const DoorShowcase: React.FC = () => {
 
   return (
     <div className="doorway w-full max-w-md aspect-[9/16] mx-auto">
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full overflow-hidden rounded-lg">
         <Door3D />
       </div>
     </div>
