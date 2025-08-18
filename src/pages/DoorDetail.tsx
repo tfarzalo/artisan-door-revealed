@@ -85,7 +85,7 @@ const DoorDetail = () => {
               {isLoading ? (
                 <Skeleton className="aspect-[9/16] w-full rounded-lg" />
               ) : (
-                <div className="bg-gray-50 rounded-lg p-8 flex items-center justify-center">
+                <div className="rounded-lg flex items-center justify-center">
                   <DoorShowcase />
                 </div>
               )}

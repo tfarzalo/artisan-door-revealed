@@ -5,11 +5,10 @@ export const Door3D: React.FC = () => {
   return (
     <div className="w-full h-full">
       <Spline
-        scene="https://prod.spline.design/V87hvaKUiXkjZymI/scene.splinecode"
+        scene="https://prod.spline.design/DyyALePNrOp5z50M/scene.splinecode"
         style={{
-          width: '100%',
-          height: '100%',
-          minHeight: '400px'
+          width: '588px',
+          height: '933px'
         }}
       />
     </div>
