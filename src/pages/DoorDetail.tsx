@@ -111,15 +111,27 @@ const DoorDetail = () => {
                     <p className="text-xl text-gray-600 leading-relaxed mb-6">
                       {door.description}
                     </p>
-                    {door.price && (
-                      <div className="flex items-center gap-4 mb-6">
-                        <span className="text-3xl font-light text-gray-900">
-                          ${door.price.toLocaleString()}
-                        </span>
-                        <span className="text-sm text-gray-500">Starting Price</span>
-                      </div>
-                    )}
                   </div>
+
+                  {/* Door Configurations Carousel */}
+                  {doorImages && doorImages.length > 0 && (
+                    <div>
+                      <h3 className="text-xl font-medium text-gray-900 mb-4">Door Configurations</h3>
+                      <div className="relative">
+                        <div className="flex gap-4 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory">
+                          {doorImages.map((image, index) => (
+                            <div key={image.id} className="flex-none w-48 h-64 snap-start">
+                              <img
+                                src={image.image_url}
+                                alt={image.alt_text || `${door.name} configuration ${index + 1}`}
+                                className="w-full h-full object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Specifications Grid */}
                   <div>
