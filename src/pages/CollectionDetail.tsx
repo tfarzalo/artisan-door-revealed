@@ -1,163 +1,135 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { ChevronLeft, Menu, Search } from "lucide-react";
+import { ChevronLeft, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { 
-  Card, 
-  CardContent,
-  CardFooter 
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useCollectionBySlug, useSubcollectionsByCollectionId } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const CollectionDetail = () => {
   const { collectionId } = useParams<{ collectionId: string }>();
-  const [menuOpen, setMenuOpen] = useState(false);
   
   const collection = collectionId || "";
   const { data: collectionData, isLoading: isCollectionLoading } = useCollectionBySlug(collection);
   const { data: subCollections, isLoading: isSubcollectionsLoading } = useSubcollectionsByCollectionId(collectionData?.id);
 
   const isLoading = isCollectionLoading || isSubcollectionsLoading;
-  
-  return (
-    <div className="flex flex-col min-h-screen bg-luxury-bg text-luxury-text">
-      {/* App-like header */}
-      <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-white bg-opacity-95 backdrop-blur-sm border-b border-luxury-text/10 flex justify-between items-center">
-        <div className="flex items-center">
-          <button 
-            className="p-2 hover:bg-luxury-text/5 rounded-full transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <Menu className="w-5 h-5 text-luxury-text/80" />
-          </button>
-          <h1 className="text-lg font-serif ml-4">Artisan Doors</h1>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Link to="/search">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Search className="w-5 h-5 text-luxury-text/80" />
-            </Button>
-          </Link>
-        </div>
-      </header>
-      
-      {/* Side menu (same as Index) */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="p-5">
-          <h2 className="text-xl font-serif mb-6">Browse</h2>
-          <ul className="space-y-4">
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/" className="text-luxury-text hover:text-luxury-accent transition-colors">Collections</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/search" className="text-luxury-text hover:text-luxury-accent transition-colors">Search</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/filter" className="text-luxury-text hover:text-luxury-accent transition-colors">Filter</Link>
-            </li>
-            <li className="border-b border-luxury-text/10 pb-3">
-              <Link to="/favorites" className="text-luxury-text hover:text-luxury-accent transition-colors">Favorites</Link>
-            </li>
-          </ul>
+
+  const getDoorIcon = (subcollectionSlug: string) => {
+    return (
+      <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
+        <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
+        {/* Basic door pattern */}
+        <div className="absolute inset-3 border border-gray-200 rounded-sm">
+          <div className="absolute top-2 left-2 right-2 h-8 border border-gray-200 rounded-sm"></div>
+          <div className="absolute bottom-2 left-2 right-2 h-8 border border-gray-200 rounded-sm"></div>
         </div>
       </div>
-      
-      {/* Overlay when menu is open */}
-      {menuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-30 z-40"
-          onClick={() => setMenuOpen(false)}
-        ></div>
-      )}
-      
-      <main className="flex-1 pt-16 pb-16 px-5">
-        <div className="max-w-4xl mx-auto">
-          {/* Back button and title */}
-          <div className="flex items-center mt-4 mb-4">
+    );
+  };
+  
+  return (
+    <div className="min-h-screen bg-white">
+      <main className="px-6 py-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Back Navigation */}
+          <div className="flex items-center mb-8">
             <Link to="/">
-              <Button variant="ghost" size="icon" className="rounded-full mr-2">
-                <ChevronLeft className="w-5 h-5" />
+              <Button variant="ghost" size="icon" className="mr-3 hover:bg-gray-100">
+                <ChevronLeft className="w-5 h-5 text-gray-600" />
               </Button>
             </Link>
-            <h2 className="text-2xl font-serif">{collectionData?.name || "Collection"}</h2>
+            <div>
+              <p className="text-sm text-gray-500 mb-1">Collections</p>
+              <h1 className="text-4xl md:text-5xl font-light text-gray-900 tracking-tight">
+                {collectionData?.name || "Collection"}
+              </h1>
+            </div>
+          </div>
+
+          {/* Collection Description */}
+          {collectionData?.description && (
+            <div className="mb-12 max-w-3xl">
+              <p className="text-xl text-gray-600 leading-relaxed">
+                {collectionData.description}
+              </p>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-4 mb-16">
+            <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+              Find My Door
+            </Button>
+            <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+              <MapPin className="w-5 h-5 mr-2" />
+              Find a Dealer
+            </Button>
           </div>
           
-          {/* Subcollection Grid */}
+          {/* Door Models Grid */}
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-              {[1, 2, 3].map((index) => (
-                <Card key={index} className="h-full border-luxury-text/10">
-                  <CardContent className="p-4">
-                    <Skeleton className="h-40 w-full rounded-md mb-3" />
-                  </CardContent>
-                  <CardFooter className="pb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <Card key={i} className="border-gray-200">
+                  <CardContent className="p-6">
+                    <Skeleton className="h-64 w-full rounded-lg mb-6" />
                     <Skeleton className="h-6 w-32 mx-auto" />
-                  </CardFooter>
+                  </CardContent>
                 </Card>
               ))}
             </div>
           ) : subCollections && subCollections.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
               {subCollections.map((subCollection) => (
-                <Link to={`/collection/${collection}/subcollection/${subCollection.slug}`} key={subCollection.id}>
-                  <Card className="h-full hover:shadow-md transition-shadow border-luxury-text/10">
-                    <CardContent className="p-4">
-                      <div className="h-40 flex items-center justify-center bg-secondary/20 rounded-md mb-3 relative">
-                        <div className="relative w-[80px] h-[160px] bg-gradient-to-r from-wood-dark via-wood to-wood-light rounded-t-lg overflow-hidden shadow-md transform scale-75">
-                          {/* Door handle */}
-                          <div className="absolute right-3 top-1/2 w-2 h-6 bg-[#B8860B] rounded-full"></div>
-                          
-                          {/* Door panels - different for each subcollection */}
-                          <div className="absolute top-2 left-2 right-2 bottom-2 border-2 border-wood-dark/30 rounded"></div>
-                          <div className="absolute top-4 left-4 right-4 bottom-4 border border-wood-dark/20 rounded"></div>
+                <Link to={`/door/${subCollection.slug}`} key={subCollection.id}>
+                  <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-6">
+                      <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
+                        <div className="transform group-hover:scale-105 transition-transform">
+                          {getDoorIcon(subCollection.slug)}
                         </div>
                       </div>
+                      
+                      <h3 className="text-xl font-light text-gray-900 text-center mb-3">
+                        {subCollection.name}
+                      </h3>
+                      {subCollection.description && (
+                        <p className="text-sm text-gray-600 text-center leading-relaxed line-clamp-2">
+                          {subCollection.description}
+                        </p>
+                      )}
                     </CardContent>
-                    <CardFooter className="pb-4">
-                      <h3 className="text-center w-full font-serif">{subCollection.name}</h3>
+                    <CardFooter className="px-6 pb-6">
+                      <Button 
+                        variant="outline" 
+                        className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors"
+                      >
+                        View Door Details
+                      </Button>
                     </CardFooter>
                   </Card>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="text-center py-8">
-              <p>No subcollections found for this collection.</p>
+            <div className="text-center py-16">
+              <h3 className="text-2xl font-light text-gray-900 mb-4">No doors found</h3>
+              <p className="text-gray-600">This collection doesn't have any door models yet.</p>
+            </div>
+          )}
+
+          {/* Results Counter */}
+          {!isLoading && subCollections && (
+            <div className="text-center mt-12">
+              <p className="text-gray-600">
+                {subCollections.length} door{subCollections.length !== 1 ? 's' : ''} in this collection
+              </p>
             </div>
           )}
         </div>
       </main>
-      
-      {/* App-like bottom navigation (same as Index) */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-luxury-text/10 px-5 py-2 flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <Link to="/">
-            <button className="text-xs text-luxury-text opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-luxury-accent"></span>
-              Collections
-            </button>
-          </Link>
-          <Link to="/search">
-            <button className="text-xs text-luxury-text opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Search
-            </button>
-          </Link>
-          <Link to="/filter">
-            <button className="text-xs text-luxury-text opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Filter
-            </button>
-          </Link>
-        </div>
-        <Link to="/contact">
-          <button className="text-xs px-3 py-2 bg-luxury-text text-white rounded">
-            Request Info
-          </button>
-        </Link>
-      </div>
     </div>
   );
 };
