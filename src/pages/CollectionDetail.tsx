@@ -82,9 +82,13 @@ const CollectionDetail = () => {
             </div>
           ) : subCollections && subCollections.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-              {subCollections.map((subCollection) => (
+              {subCollections.map((subCollection, index) => (
                 <Link to={`/door/${subCollection.slug}`} key={subCollection.id}>
-                  <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+                  <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 animate-fade-in opacity-0" 
+                        style={{ 
+                          animationDelay: `${index * 100}ms`,
+                          animationFillMode: 'forwards'
+                        }}>
                     <CardContent className="p-6">
                       <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
                         <div className="transform group-hover:scale-105 transition-transform">
