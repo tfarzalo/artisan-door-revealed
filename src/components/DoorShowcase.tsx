@@ -58,22 +58,6 @@ const DoorShowcase: React.FC = () => {
     <div className="doorway w-full max-w-md aspect-[9/16] mx-auto">
       <div className="relative w-full h-full">
         <Door3D />
-        
-        {/* Hotspot overlay */}
-        <div className="absolute inset-0 pointer-events-none">
-          {doorHotspots.map((hotspot) => (
-            <DoorHotspot
-              key={hotspot.id}
-              id={hotspot.id}
-              x={hotspot.x}
-              y={hotspot.y}
-              title={hotspot.title}
-              description={hotspot.description}
-              isActive={activeHotspot === hotspot.id}
-              onClick={() => setActiveHotspot(activeHotspot === hotspot.id ? null : hotspot.id)}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
