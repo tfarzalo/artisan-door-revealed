@@ -1,7 +1,7 @@
 
-import React from "react";
+import React, { useRef } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import { useDoorBySlug, useDoorImages, useDoorFeatures } from "@/hooks/useDoors";
 import DoorShowcase from "@/components/DoorShowcase";
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 
 const DoorDetail = () => {
   const { doorSlug } = useParams<{ doorSlug: string }>();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   // Handle both doorSlug and subcollection slug routes
   const slugToQuery = doorSlug || "";
@@ -118,7 +119,38 @@ const DoorDetail = () => {
                     <div>
                       <h3 className="text-xl font-medium text-gray-900 mb-4">Door Configurations</h3>
                       <div className="relative">
-                        <div className="flex gap-4 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory">
+                        {/* Navigation Arrows */}
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-md"
+                          onClick={() => {
+                            if (scrollContainerRef.current) {
+                              scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+                            }
+                          }}
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-md"
+                          onClick={() => {
+                            if (scrollContainerRef.current) {
+                              scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+                            }
+                          }}
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
+                        
+                        {/* Carousel Container */}
+                        <div 
+                          ref={scrollContainerRef}
+                          className="flex gap-4 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory scrollbar-hide"
+                          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                        >
                           {doorImages.map((image, index) => (
                             <div key={image.id} className="flex-none w-48 h-64 snap-start">
                               <img
@@ -126,6 +158,9 @@ const DoorDetail = () => {
                                 alt={image.alt_text || `${door.name} configuration ${index + 1}`}
                                 className="w-full h-full object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
                               />
+                              <p className="text-sm text-gray-600 mt-2 text-center font-medium">
+                                {image.alt_text}
+                              </p>
                             </div>
                           ))}
                         </div>
