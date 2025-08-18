@@ -88,30 +88,6 @@ const DoorOptions = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-luxury-bg text-luxury-text">
-      {/* App-like header */}
-      <header className="fixed top-0 left-0 right-0 z-40 px-4 py-3 bg-white bg-opacity-95 backdrop-blur-sm border-b border-luxury-text/10 flex justify-between items-center">
-        <div className="flex items-center">
-          <button 
-            className="p-2 hover:bg-luxury-text/5 rounded-full transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <Menu className="w-5 h-5 text-luxury-text/80" />
-          </button>
-          <h1 className="text-lg font-serif ml-4">Artisan Doors</h1>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Link to="/search">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Search className="w-5 h-5 text-luxury-text/80" />
-            </Button>
-          </Link>
-          <Link to="/filter">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <Filter className="w-5 h-5 text-luxury-text/80" />
-            </Button>
-          </Link>
-        </div>
-      </header>
       
       {/* Side menu (same as previous pages) */}
       <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
@@ -142,7 +118,7 @@ const DoorOptions = () => {
         ></div>
       )}
       
-      <main className="flex-1 pt-16 pb-16 px-5">
+      <main className="flex-1 py-16 px-5">
         <div className="max-w-4xl mx-auto">
           {/* Back button and title */}
           <div className="flex items-center mt-4 mb-4">
