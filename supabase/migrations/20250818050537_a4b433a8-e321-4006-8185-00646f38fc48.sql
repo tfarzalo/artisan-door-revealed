@@ -1,0 +1,31 @@
+-- Add Traditional Doors Collection
+INSERT INTO doors (slug, name, description, collection_id, subcollection_id, material, size, glasstype, doortype, price, width, height) VALUES
+-- Traditional Belle Meade Collection
+('belle-meade-classic', 'Belle Meade Classic', 'Traditional Southern elegance with raised panel construction and decorative glass. Solid cherry wood with authentic plantation-style detailing.', '3847802d-16e8-479e-97b7-c9545acd99e0', (SELECT id FROM subcollections WHERE slug = 'belle-meade'), 'Cherry', '36" x 80"', 'Decorative Glass', 'Entry Door', 2899.00, 36, 80),
+('belle-meade-plantation', 'Belle Meade Plantation', 'Grand plantation-style door with full-length sidelights and transom options. Premium mahogany construction with period-correct hardware.', '3847802d-16e8-479e-97b7-c9545acd99e0', (SELECT id FROM subcollections WHERE slug = 'belle-meade'), 'Mahogany', '36" x 80"', 'Clear Beveled', 'Entry Door', 3499.00, 36, 80),
+
+-- Brentwood Collection
+('brentwood-estate', 'Brentwood Estate', 'Luxury estate door with sophisticated glass patterns and premium wood construction. Features hand-carved details and custom finish options.', '3847802d-16e8-479e-97b7-c9545acd99e0', (SELECT id FROM subcollections WHERE slug = 'brentwood'), 'Walnut', '36" x 80"', 'Estate Glass', 'Entry Door', 3799.00, 36, 80),
+('brentwood-traditional', 'Brentwood Traditional', 'Classic Brentwood styling with 6-panel design and optional glass insert. Oak construction with traditional joinery methods.', '3847802d-16e8-479e-97b7-c9545acd99e0', (SELECT id FROM subcollections WHERE slug = 'brentwood'), 'Oak', '36" x 80"', '6-Panel Glass', 'Entry Door', 2649.00, 36, 80),
+
+-- Hampshire Collection
+('hampshire-cottage', 'Hampshire Cottage', 'English cottage-inspired design with diamond lite glass pattern. Pine construction with rustic charm and authentic hardware.', '3847802d-16e8-479e-97b7-c9545acd99e0', (SELECT id FROM subcollections WHERE slug = 'hampshire'), 'Pine', '36" x 80"', 'Diamond Lite', 'Entry Door', 2299.00, 36, 80),
+('hampshire-manor', 'Hampshire Manor', 'Stately manor door with leaded glass inserts and heavy timber construction. Features hand-forged iron hardware and aged finishes.', '3847802d-16e8-479e-97b7-c9545acd99e0', (SELECT id FROM subcollections WHERE slug = 'hampshire'), 'Oak', '36" x 80"', 'Leaded Glass', 'Entry Door', 3299.00, 36, 80);
+
+-- Add Slimline Collection
+INSERT INTO doors (slug, name, description, collection_id, subcollection_id, material, size, glasstype, doortype, price, width, height) VALUES
+('slimline-contemporary', 'Slimline Contemporary', 'Ultra-slim profile door with maximum glass area. Aluminum frame construction with thermal break technology for modern homes.', '86bfd3b1-5395-47d2-b104-af6bf021826e', (SELECT id FROM subcollections WHERE slug = 'slimline-collection'), 'Aluminum', '36" x 80"', 'Full Height Glass', 'Entry Door', 2899.00, 36, 80),
+('slimline-pivot', 'Slimline Pivot', 'Architectural pivot door with concealed hardware system. Steel frame with narrow sight lines and oversized glass panels.', '86bfd3b1-5395-47d2-b104-af6bf021826e', (SELECT id FROM subcollections WHERE slug = 'slimline-collection'), 'Steel', '42" x 96"', 'Structural Glass', 'Pivot Door', 4299.00, 42, 96),
+('slimline-minimalist', 'Slimline Minimalist', 'Pure minimalist design with flush glazing and concealed frame details. Perfect for contemporary architecture requiring clean lines.', '86bfd3b1-5395-47d2-b104-af6bf021826e', (SELECT id FROM subcollections WHERE slug = 'slimline-collection'), 'Steel', '36" x 80"', 'Flush Glass', 'Entry Door', 3199.00, 36, 80);
+
+-- Add LUXE Pivot Doors
+INSERT INTO doors (slug, name, description, collection_id, subcollection_id, material, size, glasstype, doortype, price, width, height) VALUES
+('luxe-pivot-grand', 'LUXE Pivot Grand', 'Oversized pivot door system for grand entrances. Premium materials with custom sizing up to 12 feet tall and architectural glazing options.', 'f5432f94-875e-417e-b48e-2c984813b150', (SELECT id FROM subcollections WHERE slug = 'luxe-pivot'), 'Steel & Wood', '48" x 120"', 'Architectural Glass', 'Pivot Door', 8999.00, 48, 120),
+('luxe-pivot-modern', 'LUXE Pivot Modern', 'Contemporary pivot door with hidden hardware and seamless operation. Steel construction with custom glass configurations.', 'f5432f94-875e-417e-b48e-2c984813b150', (SELECT id FROM subcollections WHERE slug = 'luxe-pivot'), 'Steel', '42" x 96"', 'Modern Glass', 'Pivot Door', 6499.00, 42, 96),
+('luxe-pivot-classic', 'LUXE Pivot Classic', 'Traditional styling adapted for pivot operation. Wood and steel hybrid construction with period-appropriate glass patterns.', 'f5432f94-875e-417e-b48e-2c984813b150', (SELECT id FROM subcollections WHERE slug = 'luxe-pivot'), 'Wood & Steel', '40" x 96"', 'Classic Glass', 'Pivot Door', 5799.00, 40, 96);
+
+-- Add Hurricane Doors
+INSERT INTO doors (slug, name, description, collection_id, subcollection_id, material, size, glasstype, doortype, price, width, height) VALUES
+('port-impact-rated', 'Port Impact Rated', 'Hurricane-rated door designed for coastal areas. Impact-resistant glass and reinforced frame construction meets Miami-Dade standards.', '1412b476-23a9-415d-88b5-b29d9b09683f', (SELECT id FROM subcollections WHERE slug = 'port'), 'Fiberglass', '36" x 80"', 'Impact Glass', 'Hurricane Door', 3799.00, 36, 80),
+('port-coastal-guard', 'Port Coastal Guard', 'Maximum protection hurricane door with laminated glass and steel reinforcement. Tested for 200+ mph wind resistance.', '1412b476-23a9-415d-88b5-b29d9b09683f', (SELECT id FROM subcollections WHERE slug = 'port'), 'Steel', '36" x 80"', 'Laminated Impact', 'Hurricane Door', 4299.00, 36, 80),
+('port-storm-shield', 'Port Storm Shield', 'Multi-layer protection system with removable storm panels. Standard door function with hurricane upgrade capability.', '1412b476-23a9-415d-88b5-b29d9b09683f', (SELECT id FROM subcollections WHERE slug = 'port'), 'Composite', '36" x 80"', 'Storm Glass', 'Hurricane Door', 3299.00, 36, 80);
