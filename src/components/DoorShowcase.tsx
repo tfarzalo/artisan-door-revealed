@@ -55,10 +55,8 @@ const DoorShowcase: React.FC = () => {
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
   return (
-    <div className="doorway w-full max-w-md aspect-[9/16] mx-auto">
-      <div className="relative w-full h-full overflow-hidden rounded-lg">
-        <Door3D />
-      </div>
+    <div className="w-full h-full">
+      <Door3D />
     </div>
   );
 };

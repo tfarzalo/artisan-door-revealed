@@ -1,67 +1,37 @@
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Html, useGLTF } from '@react-three/drei';
-import { Group } from 'three';
-
-// Define the hotspot data
-interface Hotspot {
-  id: string;
-  x: number;
-  y: number;
-  z: number;
-  title: string;
-  description: string;
-}
-
-const doorHotspots: Hotspot[] = [
-  {
-    id: "handle",
-    x: 0.8,
-    y: 0,
-    z: 0.15,
-    title: "Custom Handle",
-    description: "Hand-forged brass handle with antique finish. Each handle is crafted by master artisans and features our signature oak leaf motif."
-  },
-  {
-    id: "wood",
-    x: -0.5, 
-    y: 0.5,
-    z: 0.06,
-    title: "Premium Hardwood",
-    description: "Sustainably sourced mahogany with a 12-step finishing process that enhances the natural wood grain while providing superior protection."
-  },
-  {
-    id: "hinge",
-    x: -0.95,
-    y: 0,
-    z: 0.05,
-    title: "Concealed Hinges",
-    description: "High-performance concealed hinges ensure smooth, silent operation and perfect alignment. Rated for over 200,000 cycles."
-  },
-  {
-    id: "panel",
-    x: 0,
-    y: -0.8,
-    z: 0.06,
-    title: "Hand-carved Panels",
-    description: "Each decorative panel is hand-carved by our master craftsmen using traditional techniques passed down through generations."
-  },
-  {
-    id: "finish",
-    x: 0.3,
-    y: 1.2,
-    z: 0.06,
-    title: "Exclusive Finish",
-    description: "Our proprietary multi-layer finish provides unmatched depth and luster while offering superior protection against the elements."
-  },
-];
+import React, { useRef, useState, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
+import { Group, Box3, Vector3, PerspectiveCamera } from 'three';
 
 const DoorModel: React.FC = () => {
   const { scene } = useGLTF('https://fcakeqzotfpugrivavji.supabase.co/storage/v1/object/public/media/door-test-2.gltf');
-  return <primitive object={scene} scale={[2, 2, 2]} position={[0, -1, 0]} />;
+  const { camera } = useThree();
+  
+  useEffect(() => {
+    if (scene && camera instanceof PerspectiveCamera) {
+      // Calculate bounding box
+      const box = new Box3().setFromObject(scene);
+      const center = box.getCenter(new Vector3());
+      const size_box = box.getSize(new Vector3());
+      
+      // Center the model
+      scene.position.copy(center).multiplyScalar(-1);
+      
+      // Auto-fit camera to model
+      const maxDim = Math.max(size_box.x, size_box.y, size_box.z);
+      const fov = camera.fov * (Math.PI / 180);
+      const cameraDistance = Math.abs(maxDim / Math.sin(fov / 2)) * 0.8;
+      
+      camera.position.set(0, 0, cameraDistance);
+      camera.lookAt(0, 0, 0);
+      camera.updateProjectionMatrix();
+    }
+  }, [scene, camera]);
+
+  return <primitive object={scene} />;
 };
 
-const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setActiveHotspot: (id: string | null) => void }> = ({ rotation, activeHotspot, setActiveHotspot }) => {
+const DoorMesh: React.FC<{ rotation: number }> = ({ rotation }) => {
   const doorRef = useRef<Group>(null);
   
   useFrame(() => {
@@ -72,67 +42,13 @@ const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setAc
 
   return (
     <group ref={doorRef}>
-      {/* 3D Door Model */}
       <DoorModel />
-      
-      {/* 3D Hotspots */}
-      {doorHotspots.map((hotspot) => (
-        <Html
-          key={hotspot.id}
-          position={[hotspot.x, hotspot.y, hotspot.z]}
-          distanceFactor={5}
-          transform
-          sprite
-          zIndexRange={[0, 0]}
-        >
-          <div
-            className="group"
-            style={{
-              transform: "translate(-50%, -50%)",
-              zIndex: 1,
-            }}
-          >
-            {/* Hotspot button - lower z-index */}
-            <button
-              className={`w-4 h-4 rounded-full border border-white shadow-lg transition-all duration-300 pointer-events-auto flex items-center justify-center ${
-                activeHotspot === hotspot.id ? 'bg-luxury-accent scale-125' : 'bg-luxury-accent bg-opacity-90 hover:scale-110'
-              }`}
-              onClick={() => setActiveHotspot(activeHotspot === hotspot.id ? null : hotspot.id)}
-              aria-label={hotspot.title}
-              style={{ zIndex: 1 }}
-            >
-              <span className="text-white text-[10px] font-bold leading-none">
-                {activeHotspot === hotspot.id ? "×" : "+"}
-              </span>
-            </button>
-            
-            {/* Hotspot content - higher z-index */}
-            <div
-              className={`absolute top-5 w-44 p-3 bg-white rounded-md shadow-xl border transition-all duration-300 ${
-                activeHotspot === hotspot.id
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-1 pointer-events-none"
-              }`}
-              style={{
-                left: hotspot.x > 0 ? "-176px" : "0",
-                borderTop: "2px solid #B8860B",
-                zIndex: 50,
-              }}
-            >
-              <span className="text-luxury-accent text-[10px] font-medium uppercase tracking-wide block mb-1">Feature</span>
-              <h4 className="text-luxury-text text-xs font-serif mb-1 leading-tight">{hotspot.title}</h4>
-              <p className="text-luxury-text/80 text-[10px] leading-relaxed">{hotspot.description}</p>
-            </div>
-          </div>
-        </Html>
-      ))}
     </group>
   );
 };
 
 export const Door3D: React.FC = () => {
   const [rotation, setRotation] = useState(0);
-  const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [lastX, setLastX] = useState(0);
 
@@ -159,31 +75,27 @@ export const Door3D: React.FC = () => {
 
   return (
     <div 
-      className="w-full h-full cursor-grab active:cursor-grabbing relative"
+      className="w-full h-full cursor-grab active:cursor-grabbing"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
       <Canvas 
-        camera={{ position: [0, 0, 4], fov: 60 }}
+        camera={{ position: [0, 0, 5], fov: 75 }}
         className="w-full h-full"
         style={{ background: 'transparent' }}
       >
-        <ambientLight intensity={0.6} />
+        <ambientLight intensity={0.8} />
         <directionalLight 
-          position={[5, 5, 5]} 
-          intensity={1.0} 
+          position={[10, 10, 10]} 
+          intensity={1.2} 
           castShadow 
         />
-        <directionalLight position={[-5, 5, 5]} intensity={0.4} />
+        <directionalLight position={[-10, 10, 10]} intensity={0.6} />
         
-        <DoorMesh rotation={rotation} activeHotspot={activeHotspot} setActiveHotspot={setActiveHotspot} />
+        <DoorMesh rotation={rotation} />
       </Canvas>
-      
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-muted-foreground text-sm">
-        Drag to rotate door
-      </div>
     </div>
   );
 };
