@@ -44,7 +44,7 @@ const CollectionDetail = () => {
           {/* Hero Section */}
           <div className="text-center mb-16">
             {/* Breadcrumb Navigation */}
-            <Breadcrumb className="mb-6 justify-center">
+            <Breadcrumb className="mb-6 flex justify-center">
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
