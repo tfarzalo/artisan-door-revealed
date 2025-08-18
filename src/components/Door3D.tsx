@@ -57,7 +57,7 @@ const doorHotspots: Hotspot[] = [
 ];
 
 const DoorModel: React.FC = () => {
-  const { scene } = useGLTF('https://fcakeqzotfpugrivavji.supabase.co/storage/v1/object/public/media/door-test.gltf');
+  const { scene } = useGLTF('https://fcakeqzotfpugrivavji.supabase.co/storage/v1/object/public/media/door-test-2.gltf');
   return <primitive object={scene} scale={[1, 1, 1]} />;
 };
 
