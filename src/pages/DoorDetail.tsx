@@ -148,17 +148,19 @@ const DoorDetail = () => {
                         {/* Carousel Container */}
                         <div 
                           ref={scrollContainerRef}
-                          className="flex gap-4 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory scrollbar-hide"
+                          className="flex gap-4 overflow-x-auto scroll-smooth pb-8 snap-x snap-mandatory scrollbar-hide"
                           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                         >
                           {doorImages.map((image, index) => (
-                            <div key={image.id} className="flex-none w-48 h-64 snap-start">
-                              <img
-                                src={image.image_url}
-                                alt={image.alt_text || `${door.name} configuration ${index + 1}`}
-                                className="w-full h-full object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-                              />
-                              <p className="text-sm text-gray-600 mt-2 text-center font-medium">
+                            <div key={image.id} className="flex-none w-48 snap-start">
+                              <div className="h-64 mb-3">
+                                <img
+                                  src={image.image_url}
+                                  alt={image.alt_text || `${door.name} configuration ${index + 1}`}
+                                  className="w-full h-full object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                                />
+                              </div>
+                              <p className="text-sm text-gray-600 text-center font-medium px-1 leading-tight">
                                 {image.alt_text}
                               </p>
                             </div>
