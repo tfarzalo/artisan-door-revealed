@@ -41,23 +41,22 @@ const CollectionDetail = () => {
     <div className="min-h-screen bg-white">
       <main className="px-6 py-12">
         <div className="max-w-7xl mx-auto">
-          {/* Breadcrumb Navigation */}
-          <Breadcrumb className="mb-8">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/">Home</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{collectionData?.name || "Collection"}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-
           {/* Hero Section */}
           <div className="text-center mb-16">
+            {/* Breadcrumb Navigation */}
+            <Breadcrumb className="mb-6 justify-center">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Home</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{collectionData?.name || "Collection"}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
             <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">
               {collectionData?.name || "Collection"}
             </h1>

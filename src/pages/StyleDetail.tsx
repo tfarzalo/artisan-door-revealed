@@ -54,35 +54,47 @@ const StyleDetail = () => {
     <div className="min-h-screen bg-white">
       <main className="px-6 py-12">
         <div className="max-w-7xl mx-auto">
-          {/* Breadcrumb Navigation */}
+          {/* Hero Section */}
           {!isLoading && door && style && (
-            <Breadcrumb className="mb-8">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to="/">Home</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to={`/collection/${door.collection?.slug}`}>
-                      {door.collection?.name}
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to={`/door/${door.slug}`}>{door.name}</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{style.name}</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <div className="text-center mb-16">
+              {/* Breadcrumb Navigation */}
+              <Breadcrumb className="mb-6 justify-center">
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/">Home</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to={`/collection/${door.collection?.slug}`}>
+                        {door.collection?.name}
+                      </Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to={`/door/${door.slug}`}>{door.name}</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>{style.name}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+              
+              <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">
+                {style?.name}
+              </h1>
+              {style?.description && (
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">
+                  {style.description || `Explore the ${style.name} style featuring distinctive design elements that make each door unique.`}
+                </p>
+              )}
+            </div>
           )}
 
           {/* Main Content Grid */}
