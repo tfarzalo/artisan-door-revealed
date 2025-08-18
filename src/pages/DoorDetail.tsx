@@ -255,8 +255,8 @@ const DoorDetail = () => {
           {/* Related Products */}
           {door?.collection && (
             <div className="border-t border-gray-200 pt-16">
-              <h2 className="text-3xl font-light text-gray-900 mb-8">More from {door.collection.name}</h2>
-              <div className="text-center py-8">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-light text-gray-900 mb-4">More from {door.collection.name}</h2>
                 <Link to={`/collection/${door.collection.slug}`}>
                   <Button variant="outline" size="lg" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
                     View All {door.collection.name}

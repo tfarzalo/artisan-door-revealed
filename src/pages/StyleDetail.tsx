@@ -143,54 +143,57 @@ const StyleDetail = () => {
                             switch (styleName?.toLowerCase()) {
                               case 'burlwood iron':
                                 return [
-                                  { name: "Standard Size", description: "36\" x 80\" standard entry door", size: "36\" x 80\"" },
-                                  { name: "Oversized", description: "42\" x 96\" grand entrance", size: "42\" x 96\"" },
-                                  { name: "Double Entry", description: "72\" x 80\" double door set", size: "72\" x 80\"" },
-                                  { name: "Sidelight Combo", description: "With matching sidelights", size: "Complete Set" }
+                                  { name: "E-01", description: "Single lite clear glass with square top", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "E-01B", description: "Single lite with flemish glass option", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "E-04", description: "Decorative iron grille pattern", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "E-17", description: "Traditional iron scrollwork design", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "E-19", description: "Contemporary iron grid pattern", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "E-04 6'8\"", description: "E-04 pattern in standard height", specs: "3'0\" x 6'8\" x 1¾\"" },
+                                  { name: "E-17 6'8\"", description: "E-17 pattern in standard height", specs: "3'0\" x 6'8\" x 1¾\"" }
                                 ];
                               case 'redwood iron':
                                 return [
-                                  { name: "Standard", description: "Classic 36\" x 80\" configuration", size: "36\" x 80\"" },
-                                  { name: "Tall Format", description: "36\" x 96\" extended height", size: "36\" x 96\"" },
-                                  { name: "Wide Entry", description: "42\" x 80\" wide opening", size: "42\" x 80\"" }
+                                  { name: "E-01 Redwood", description: "Single lite with redwood finish", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "E-04 Redwood", description: "Iron grille with redwood stain", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "E-17 Redwood", description: "Scrollwork with redwood finish", specs: "3'0\" x 8'0\" x 1¾\"" }
                                 ];
                               case 'solid panel':
                                 return [
-                                  { name: "Raised Panel", description: "Traditional raised panel design", size: "36\" x 80\"" },
-                                  { name: "Flat Panel", description: "Contemporary flat panel style", size: "36\" x 80\"" },
-                                  { name: "Custom Texture", description: "Custom wood grain patterns", size: "Various" }
+                                  { name: "Raised Panel", description: "Traditional raised panel design", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "Flat Panel", description: "Contemporary flat panel style", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "Custom Texture", description: "Custom wood grain patterns", specs: "Various sizes" }
                                 ];
                               case '6lt clear':
                                 return [
-                                  { name: "Clear Glass", description: "Standard clear glass panels", size: "36\" x 80\"" },
-                                  { name: "Low-E Glass", description: "Energy-efficient glazing", size: "36\" x 80\"" },
-                                  { name: "Tinted Glass", description: "Privacy tinted options", size: "36\" x 80\"" }
+                                  { name: "6LT Clear", description: "Six lite clear glass configuration", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "6LT Low-E", description: "Energy efficient glazing", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "6LT Privacy", description: "Obscured glass option", specs: "3'0\" x 8'0\" x 1¾\"" }
                                 ];
                               case 'leaded 6lt':
                                 return [
-                                  { name: "Traditional Lead", description: "Classic leaded glass pattern", size: "36\" x 80\"" },
-                                  { name: "Decorative Lead", description: "Custom decorative patterns", size: "36\" x 80\"" },
-                                  { name: "Colored Glass", description: "Stained glass inserts", size: "36\" x 80\"" }
+                                  { name: "Traditional Lead", description: "Classic leaded glass pattern", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "Decorative Lead", description: "Custom decorative patterns", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "Colored Glass", description: "Stained glass inserts", specs: "3'0\" x 8'0\" x 1¾\"" }
                                 ];
                               default:
                                 return [
-                                  { name: "Standard Configuration", description: "Standard door configuration", size: "36\" x 80\"" },
-                                  { name: "Custom Size", description: "Custom sizing available", size: "Various" },
-                                  { name: "Hardware Options", description: "Multiple hardware finishes", size: "Standard" }
+                                  { name: "Standard", description: "Standard door configuration", specs: "3'0\" x 8'0\" x 1¾\"" },
+                                  { name: "Custom Size", description: "Custom sizing available", specs: "Various" },
+                                  { name: "Hardware Options", description: "Multiple hardware finishes", specs: "Standard" }
                                 ];
                             }
                           };
                           
                           return getConfigurationsForStyle(style?.name || '').map((config, index) => (
-                            <div key={index} className="flex-none w-48 snap-start">
-                              <div className="h-64 mb-3 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
-                                <div className="text-center text-gray-500 p-4">
-                                  <div className="text-4xl mb-2">{style?.icon || '🚪'}</div>
-                                  <p className="text-sm font-medium">{config.name}</p>
-                                  <p className="text-xs text-gray-400 mt-1">{config.size}</p>
+                            <div key={index} className="flex-none w-56 snap-start">
+                              <div className="h-72 mb-3 bg-white rounded-lg flex items-center justify-center border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                                <div className="text-center text-gray-600 p-4">
+                                  <div className="text-5xl mb-3 text-gray-400">{style?.icon || '🚪'}</div>
+                                  <p className="text-base font-semibold text-gray-900 mb-1">{config.name}</p>
+                                  <p className="text-xs text-gray-500 mb-2">{config.specs}</p>
                                 </div>
                               </div>
-                              <p className="text-sm text-gray-600 text-center font-medium px-1 leading-tight">
+                              <p className="text-sm text-gray-700 text-center font-medium px-2 leading-tight">
                                 {config.description}
                               </p>
                             </div>
@@ -219,8 +222,8 @@ const StyleDetail = () => {
           {/* Related Styles */}
           {door && (
             <div className="border-t border-gray-200 pt-16">
-              <h2 className="text-3xl font-light text-gray-900 mb-8">More {door.name} Styles</h2>
-              <div className="text-center py-8">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-light text-gray-900 mb-4">More {door.name} Styles</h2>
                 <Link to={`/door/${door.slug}`}>
                   <Button variant="outline" size="lg" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
                     View All {door.name} Styles
