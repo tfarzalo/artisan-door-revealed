@@ -89,6 +89,32 @@ const DoorDetail = () => {
             </Breadcrumb>
           )}
 
+          {/* Hero Section */}
+          {!isLoading && door && (
+            <div className="text-center mb-16">
+              <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">
+                {door.name}
+              </h1>
+              {door.description && (
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">
+                  {door.description}
+                </p>
+              )}
+              
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4 justify-center mb-12">
+                <Link to="/contact">
+                  <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                    Request Quote
+                  </Button>
+                </Link>
+                <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+                  Find a Dealer
+                </Button>
+              </div>
+            </div>
+          )}
+
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
             {/* Door Visualization */}
@@ -119,12 +145,6 @@ const DoorDetail = () => {
                 </div>
               ) : door ? (
                 <>
-                  {/* Description */}
-                  <div>
-                    <p className="text-xl text-gray-600 leading-relaxed mb-6">
-                      {door.description}
-                    </p>
-                  </div>
 
                   {/* Door Collection Styles Carousel */}
                   {doorImages && doorImages.length > 0 && (
@@ -248,17 +268,7 @@ const DoorDetail = () => {
                     </div>
                   )}
 
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                    <Link to="/contact" className="flex-1">
-                      <Button size="lg" className="w-full px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
-                        Request Quote
-                      </Button>
-                    </Link>
-                    <Button size="lg" variant="outline" className="flex-1 px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
-                      Find a Dealer
-                    </Button>
-                  </div>
+                  {/* Action Buttons - Moved to Hero Section */}
                 </>
               ) : null}
             </div>
