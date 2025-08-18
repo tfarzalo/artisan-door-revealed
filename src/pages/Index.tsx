@@ -28,7 +28,11 @@ const Index = () => {
     { slug: 'signature-doors', name: 'Signature' },
     { slug: 'traditional-doors', name: 'Traditional' },
     { slug: 'modern-doors', name: 'Modern' },
-    { slug: 'specialty-doors', name: 'Specialty' },
+    { slug: 'slimline-doors', name: 'Slimline' },
+    { slug: 'luxe-pivot-doors', name: 'LUXE Pivot' },
+    { slug: 'hurricane-doors', name: 'Hurricane' },
+    { slug: 'interior-doors', name: 'Interior' },
+    { slug: 'discontinued-clearance', name: 'Clearance' },
   ];
 
   return (
@@ -145,11 +149,27 @@ const Index = () => {
                           {doorModel.collection?.slug === 'modern-doors' && (
                             <div className="absolute left-3 right-3 top-6 bottom-6 border-l-2 border-gray-300"></div>
                           )}
-                          {doorModel.collection?.slug === 'specialty-doors' && (
+                          {doorModel.collection?.slug === 'luxe-pivot-doors' && (
                             <div className="absolute inset-3">
                               <div className="absolute top-3 left-2 right-2 h-0.5 bg-gray-300"></div>
                               <div className="absolute bottom-3 left-2 right-2 h-0.5 bg-gray-300"></div>
+                              <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-gray-400 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
                             </div>
+                          )}
+                          {doorModel.collection?.slug === 'hurricane-doors' && (
+                            <div className="absolute inset-3 bg-gradient-to-b from-blue-100 to-transparent rounded-sm border-2 border-blue-200"></div>
+                          )}
+                          {doorModel.collection?.slug === 'slimline-doors' && (
+                            <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-gray-300 transform -translate-x-1/2"></div>
+                          )}
+                          {doorModel.collection?.slug === 'interior-doors' && (
+                            <div className="absolute inset-3">
+                              <div className="absolute top-2 left-2 right-1/2 bottom-2 border border-gray-200"></div>
+                              <div className="absolute top-2 left-1/2 right-2 bottom-2 border border-gray-200"></div>
+                            </div>
+                          )}
+                          {doorModel.collection?.slug === 'discontinued-clearance' && (
+                            <div className="absolute inset-3 border border-red-200 rounded-sm bg-red-50"></div>
                           )}
                         </div>
                       </div>
