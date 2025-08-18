@@ -66,17 +66,6 @@ const CollectionDetail = () => {
                 {collectionData.description}
               </p>
             )}
-            
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4 justify-center mb-12">
-              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
-                Find My Door
-              </Button>
-              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
-                <MapPin className="w-5 h-5 mr-2" />
-                Find a Dealer
-              </Button>
-            </div>
           </div>
 
           
@@ -129,6 +118,19 @@ const CollectionDetail = () => {
             <div className="text-center py-16">
               <h3 className="text-2xl font-light text-gray-900 mb-4">No doors found</h3>
               <p className="text-gray-600">This collection doesn't have any door models yet.</p>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          {!isLoading && subCollections && (
+            <div className="flex flex-wrap gap-4 justify-center mt-16 mb-8">
+              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                Find My Door
+              </Button>
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+                <MapPin className="w-5 h-5 mr-2" />
+                Find a Dealer
+              </Button>
             </div>
           )}
 

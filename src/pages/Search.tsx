@@ -61,17 +61,6 @@ const Search = () => {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">
               Find the perfect door for your home. Search by style, material, collection, or any feature that matters to you.
             </p>
-            
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4 justify-center mb-12">
-              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
-                Find My Door
-              </Button>
-              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
-                <MapPin className="w-5 h-5 mr-2" />
-                Find a Dealer
-              </Button>
-            </div>
           </div>
 
           {/* Search Results */}

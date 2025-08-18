@@ -219,21 +219,25 @@ const StyleDetail = () => {
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                    <Link to="/contact" className="flex-1">
-                      <Button size="lg" className="w-full px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
-                        Request Quote
-                      </Button>
-                    </Link>
-                    <Button size="lg" variant="outline" className="flex-1 px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
-                      Find a Dealer
-                    </Button>
-                  </div>
+                  {/* Action Buttons - Moved to bottom */}
                 </>
               ) : null}
             </div>
           </div>
+
+          {/* Action Buttons */}
+          {door && style && (
+            <div className="flex flex-wrap gap-4 justify-center mt-16 mb-8">
+              <Link to="/contact">
+                <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                  Request Quote
+                </Button>
+              </Link>
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+                Find a Dealer
+              </Button>
+            </div>
+          )}
 
           {/* Related Styles */}
           {door && (
