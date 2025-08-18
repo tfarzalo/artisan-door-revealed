@@ -32,3 +32,32 @@ export function useSubcollectionBySlug(slug: string) {
     enabled: !!slug,
   });
 }
+
+export function useAllSubcollections() {
+  return useQuery({
+    queryKey: ['all-subcollections'],
+    queryFn: async () => {
+      const { data, error } = await import('../lib/supabase').then(({ supabase }) => 
+        supabase
+          .from('subcollections')
+          .select(`
+            *,
+            collection:collection_id (
+              id,
+              name,
+              slug
+            )
+          `)
+          .order('collection_id')
+          .order('display_order')
+      );
+      
+      if (error) {
+        console.error('Error fetching all subcollections:', error);
+        throw error;
+      }
+      
+      return data;
+    },
+  });
+}

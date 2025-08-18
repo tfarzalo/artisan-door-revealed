@@ -4,21 +4,22 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useCollections } from "@/hooks/useCollections";
+import { useAllSubcollections } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search, MapPin } from "lucide-react";
 
 const Index = () => {
-  const { data: collections, isLoading, error } = useCollections();
+  const { data: doorModels, isLoading, error } = useAllSubcollections();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filter collections based on selected category and search
-  const filteredCollections = collections?.filter(collection => {
-    const matchesCategory = selectedCategory ? collection.slug === selectedCategory : true;
+  // Filter door models based on selected category and search
+  const filteredDoorModels = doorModels?.filter(doorModel => {
+    const matchesCategory = selectedCategory ? doorModel.collection?.slug === selectedCategory : true;
     const matchesSearch = searchQuery ? 
-      collection.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      collection.description?.toLowerCase().includes(searchQuery.toLowerCase())
+      doorModel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doorModel.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      doorModel.collection?.name.toLowerCase().includes(searchQuery.toLowerCase())
       : true;
     return matchesCategory && matchesSearch;
   });
@@ -113,13 +114,13 @@ const Index = () => {
             </div>
           ) : error ? (
             <div className="text-center py-16">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">Unable to load collections</h3>
+              <h3 className="text-2xl font-light text-gray-900 mb-4">Unable to load door models</h3>
               <p className="text-gray-600">Please try again later.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-              {filteredCollections?.map((collection) => (
-                <Link to={`/collection/${collection.slug}`} key={collection.id}>
+              {filteredDoorModels?.map((doorModel) => (
+                <Link to={`/door/${doorModel.slug}`} key={doorModel.id}>
                   <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
                     <CardContent className="p-6">
                       <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
@@ -128,23 +129,23 @@ const Index = () => {
                           {/* Door handle */}
                           <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
                           
-                          {/* Minimalist door patterns */}
-                          {collection.slug === 'signature-doors' && (
+                          {/* Minimalist door patterns based on collection */}
+                          {doorModel.collection?.slug === 'signature-doors' && (
                             <div className="absolute inset-3 border border-gray-200 rounded-sm">
                               <div className="absolute top-2 left-2 right-2 h-8 border border-gray-200 rounded-sm"></div>
                               <div className="absolute bottom-2 left-2 right-2 h-8 border border-gray-200 rounded-sm"></div>
                             </div>
                           )}
-                          {collection.slug === 'traditional-doors' && (
+                          {doorModel.collection?.slug === 'traditional-doors' && (
                             <div className="absolute inset-3">
                               <div className="absolute top-0 left-0 right-0 h-1/3 border border-gray-200"></div>
                               <div className="absolute bottom-0 left-0 right-0 h-1/3 border border-gray-200"></div>
                             </div>
                           )}
-                          {collection.slug === 'modern-doors' && (
+                          {doorModel.collection?.slug === 'modern-doors' && (
                             <div className="absolute left-3 right-3 top-6 bottom-6 border-l-2 border-gray-300"></div>
                           )}
-                          {collection.slug === 'specialty-doors' && (
+                          {doorModel.collection?.slug === 'specialty-doors' && (
                             <div className="absolute inset-3">
                               <div className="absolute top-3 left-2 right-2 h-0.5 bg-gray-300"></div>
                               <div className="absolute bottom-3 left-2 right-2 h-0.5 bg-gray-300"></div>
@@ -154,11 +155,14 @@ const Index = () => {
                       </div>
                       
                       <h3 className="text-xl font-light text-gray-900 text-center mb-3">
-                        {collection.name}
+                        {doorModel.name}
                       </h3>
-                      {collection.description && (
+                      <div className="text-xs text-gray-500 text-center mb-2">
+                        {doorModel.collection?.name}
+                      </div>
+                      {doorModel.description && (
                         <p className="text-sm text-gray-600 text-center leading-relaxed line-clamp-2">
-                          {collection.description}
+                          {doorModel.description}
                         </p>
                       )}
                     </CardContent>
@@ -167,7 +171,7 @@ const Index = () => {
                         variant="outline" 
                         className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors"
                       >
-                        View Collection
+                        View Door Details
                       </Button>
                     </CardFooter>
                   </Card>
@@ -180,7 +184,7 @@ const Index = () => {
           {!isLoading && !error && (
             <div className="text-center mt-12">
               <p className="text-gray-600">
-                Showing {filteredCollections?.length || 0} of {collections?.length || 0} collections
+                Showing {filteredDoorModels?.length || 0} of {doorModels?.length || 0} door models
               </p>
             </div>
           )}
