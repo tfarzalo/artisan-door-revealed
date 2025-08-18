@@ -118,7 +118,7 @@ const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setAc
         <Html
           key={hotspot.id}
           position={[hotspot.x, hotspot.y, hotspot.z]}
-          distanceFactor={10}
+          distanceFactor={3}
           transform
           sprite
         >
@@ -131,33 +131,32 @@ const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setAc
           >
             {/* Hotspot button */}
             <button
-              className={`w-6 h-6 rounded-full border-2 border-white shadow-lg transition-all duration-300 pointer-events-auto ${
-                activeHotspot === hotspot.id ? 'bg-luxury-accent scale-110' : 'bg-luxury-accent bg-opacity-70 hover:scale-110'
+              className={`w-3 h-3 rounded-full border border-white shadow-md transition-all duration-300 pointer-events-auto ${
+                activeHotspot === hotspot.id ? 'bg-luxury-accent scale-125' : 'bg-luxury-accent bg-opacity-80 hover:scale-110'
               }`}
               onClick={() => setActiveHotspot(activeHotspot === hotspot.id ? null : hotspot.id)}
               aria-label={hotspot.title}
             >
-              <span className="text-white text-xs font-bold">
+              <span className="text-white text-[8px] font-bold leading-none">
                 {activeHotspot === hotspot.id ? "×" : "+"}
               </span>
             </button>
             
             {/* Hotspot content */}
             <div
-              className={`absolute top-8 w-48 p-3 bg-white rounded-lg shadow-xl border transition-all duration-300 ${
+              className={`absolute top-4 w-36 p-2 bg-white rounded shadow-lg border transition-all duration-300 text-xs ${
                 activeHotspot === hotspot.id
                   ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-2 pointer-events-none"
+                  : "opacity-0 translate-y-1 pointer-events-none"
               }`}
               style={{
-                left: hotspot.x > 0 ? "auto" : "0",
-                right: hotspot.x > 0 ? "0" : "auto",
-                borderTop: "2px solid #B8860B",
+                left: hotspot.x > 0 ? "-144px" : "0",
+                borderTop: "1px solid #B8860B",
               }}
             >
-              <span className="text-luxury-accent text-xs font-medium uppercase tracking-wider">Feature</span>
-              <h4 className="text-luxury-text text-sm font-serif mb-1">{hotspot.title}</h4>
-              <p className="text-luxury-text/80 text-xs">{hotspot.description}</p>
+              <span className="text-luxury-accent text-[9px] font-medium uppercase tracking-wide block">Feature</span>
+              <h4 className="text-luxury-text text-[10px] font-serif mb-1 leading-tight">{hotspot.title}</h4>
+              <p className="text-luxury-text/80 text-[9px] leading-tight">{hotspot.description}</p>
             </div>
           </div>
         </Html>
