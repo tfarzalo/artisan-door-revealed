@@ -58,8 +58,8 @@ const DoorDetail = () => {
           {/* Back Navigation */}
           <div className="flex items-center mb-8">
             <Link to={door ? `/collection/${door.collection?.slug}` : "/"}>
-              <Button variant="ghost" size="icon" className="mr-3 hover:bg-gray-100">
-                <ChevronLeft className="w-5 h-5 text-gray-600" />
+              <Button variant="ghost" size="icon" className="mr-3 hover:bg-gray-200">
+                <ChevronLeft className="w-5 h-5 text-gray-900" />
               </Button>
             </Link>
             <div>
@@ -67,9 +67,21 @@ const DoorDetail = () => {
                 <Skeleton className="h-12 w-64" />
               ) : (
                 <>
-                  <p className="text-sm text-gray-500 mb-1">
-                    {door?.collection?.name} / {door?.subcollection?.name}
-                  </p>
+                  <div className="text-sm mb-1 flex items-center gap-1">
+                    <Link 
+                      to={`/collection/${door?.collection?.slug}`} 
+                      className="text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      {door?.collection?.name}
+                    </Link>
+                    <span className="text-gray-400">/</span>
+                    <Link 
+                      to={`/collection/${door?.collection?.slug}/${door?.subcollection?.slug}`} 
+                      className="text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      {door?.subcollection?.name}
+                    </Link>
+                  </div>
                   <h1 className="text-4xl md:text-5xl font-light text-gray-900 tracking-tight">
                     {door?.name}
                   </h1>
