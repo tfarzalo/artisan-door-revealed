@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Box, Cylinder } from '@react-three/drei';
 import { Group } from 'three';
 
 const DoorMesh: React.FC<{ rotation: number }> = ({ rotation }) => {
@@ -15,41 +14,50 @@ const DoorMesh: React.FC<{ rotation: number }> = ({ rotation }) => {
   return (
     <group ref={doorRef}>
       {/* Door frame */}
-      <Box args={[0.1, 4, 2]} position={[-1.1, 0, 0]}>
+      <mesh position={[-1.1, 0, 0]}>
+        <boxGeometry args={[0.1, 4, 2]} />
         <meshStandardMaterial color="#8B4513" />
-      </Box>
-      <Box args={[0.1, 4, 2]} position={[1.1, 0, 0]}>
+      </mesh>
+      <mesh position={[1.1, 0, 0]}>
+        <boxGeometry args={[0.1, 4, 2]} />
         <meshStandardMaterial color="#8B4513" />
-      </Box>
-      <Box args={[2.2, 0.1, 2]} position={[0, 2, 0]}>
+      </mesh>
+      <mesh position={[0, 2, 0]}>
+        <boxGeometry args={[2.2, 0.1, 2]} />
         <meshStandardMaterial color="#8B4513" />
-      </Box>
+      </mesh>
       
       {/* Main door panel */}
-      <Box args={[2, 3.8, 0.1]} position={[0, 0, 0]}>
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[2, 3.8, 0.1]} />
         <meshStandardMaterial color="#654321" />
-      </Box>
+      </mesh>
       
       {/* Door panels - decorative rectangles */}
-      <Box args={[0.8, 1.5, 0.12]} position={[0, 0.8, 0.01]}>
+      <mesh position={[0, 0.8, 0.01]}>
+        <boxGeometry args={[0.8, 1.5, 0.12]} />
         <meshStandardMaterial color="#5D4E37" />
-      </Box>
-      <Box args={[0.8, 1.5, 0.12]} position={[0, -0.8, 0.01]}>
+      </mesh>
+      <mesh position={[0, -0.8, 0.01]}>
+        <boxGeometry args={[0.8, 1.5, 0.12]} />
         <meshStandardMaterial color="#5D4E37" />
-      </Box>
+      </mesh>
       
       {/* Door handle */}
-      <Cylinder args={[0.03, 0.03, 0.15]} position={[0.8, 0, 0.15]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={[0.8, 0, 0.15]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.03, 0.03, 0.15]} />
         <meshStandardMaterial color="#B8860B" />
-      </Cylinder>
+      </mesh>
       
       {/* Hinges */}
-      <Cylinder args={[0.05, 0.05, 0.1]} position={[-0.95, 1.5, 0.05]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={[-0.95, 1.5, 0.05]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.05, 0.05, 0.1]} />
         <meshStandardMaterial color="#696969" />
-      </Cylinder>
-      <Cylinder args={[0.05, 0.05, 0.1]} position={[-0.95, -1.5, 0.05]} rotation={[Math.PI / 2, 0, 0]}>
+      </mesh>
+      <mesh position={[-0.95, -1.5, 0.05]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.05, 0.05, 0.1]} />
         <meshStandardMaterial color="#696969" />
-      </Cylinder>
+      </mesh>
     </group>
   );
 };
@@ -94,15 +102,10 @@ export const Door3D: React.FC = () => {
           position={[5, 5, 5]} 
           intensity={0.8} 
           castShadow 
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
         />
         <directionalLight position={[-5, 5, 5]} intensity={0.3} />
         
         <DoorMesh rotation={rotation} />
-        
-        {/* Disable orbit controls to prevent conflicts */}
-        <OrbitControls enableRotate={false} enableZoom={false} enablePan={false} />
       </Canvas>
       
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-muted-foreground text-sm">
