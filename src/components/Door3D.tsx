@@ -5,7 +5,7 @@ import { Group, Box3, Vector3, PerspectiveCamera } from 'three';
 
 const DoorModel: React.FC = () => {
   const { scene } = useGLTF('https://fcakeqzotfpugrivavji.supabase.co/storage/v1/object/public/media/door-test-2.gltf');
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   
   useEffect(() => {
     if (scene && camera instanceof PerspectiveCamera) {
@@ -17,16 +17,19 @@ const DoorModel: React.FC = () => {
       // Center the model
       scene.position.copy(center).multiplyScalar(-1);
       
-      // Auto-fit camera to model
+      // Much closer camera positioning for larger appearance
       const maxDim = Math.max(size_box.x, size_box.y, size_box.z);
-      const fov = camera.fov * (Math.PI / 180);
-      const cameraDistance = Math.abs(maxDim / Math.sin(fov / 2)) * 0.8;
+      const aspectRatio = size.width / size.height;
       
-      camera.position.set(0, 0, cameraDistance);
+      // Calculate distance to fill 80% of viewport height
+      const fov = camera.fov * (Math.PI / 180);
+      const distance = (maxDim / (2 * Math.tan(fov / 2))) * 0.4; // Much smaller multiplier
+      
+      camera.position.set(0, 0, distance);
       camera.lookAt(0, 0, 0);
       camera.updateProjectionMatrix();
     }
-  }, [scene, camera]);
+  }, [scene, camera, size]);
 
   return <primitive object={scene} />;
 };
@@ -82,9 +85,13 @@ export const Door3D: React.FC = () => {
       onMouseLeave={handleMouseUp}
     >
       <Canvas 
-        camera={{ position: [0, 0, 5], fov: 75 }}
+        camera={{ position: [0, 0, 2], fov: 50 }}
         className="w-full h-full"
         style={{ background: 'transparent' }}
+        gl={{ antialias: true }}
+        onCreated={({ camera }) => {
+          camera.position.set(0, 0, 2);
+        }}
       >
         <ambientLight intensity={0.8} />
         <directionalLight 
