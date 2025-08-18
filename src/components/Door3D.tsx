@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Html } from '@react-three/drei';
+import { Html, useGLTF } from '@react-three/drei';
 import { Group } from 'three';
 
 // Define the hotspot data
@@ -56,6 +56,11 @@ const doorHotspots: Hotspot[] = [
   },
 ];
 
+const DoorModel: React.FC = () => {
+  const { scene } = useGLTF('https://fcakeqzotfpugrivavji.supabase.co/storage/v1/object/public/media/door-test.gltf');
+  return <primitive object={scene} scale={[1, 1, 1]} />;
+};
+
 const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setActiveHotspot: (id: string | null) => void }> = ({ rotation, activeHotspot, setActiveHotspot }) => {
   const doorRef = useRef<Group>(null);
   
@@ -67,51 +72,8 @@ const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setAc
 
   return (
     <group ref={doorRef}>
-      {/* Door frame */}
-      <mesh position={[-1.1, 0, 0]}>
-        <boxGeometry args={[0.1, 4, 2]} />
-        <meshStandardMaterial color="#8B4513" />
-      </mesh>
-      <mesh position={[1.1, 0, 0]}>
-        <boxGeometry args={[0.1, 4, 2]} />
-        <meshStandardMaterial color="#8B4513" />
-      </mesh>
-      <mesh position={[0, 2, 0]}>
-        <boxGeometry args={[2.2, 0.1, 2]} />
-        <meshStandardMaterial color="#8B4513" />
-      </mesh>
-      
-      {/* Main door panel */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[2, 3.8, 0.1]} />
-        <meshStandardMaterial color="#654321" />
-      </mesh>
-      
-      {/* Door panels - decorative rectangles */}
-      <mesh position={[0, 0.8, 0.01]}>
-        <boxGeometry args={[0.8, 1.5, 0.12]} />
-        <meshStandardMaterial color="#5D4E37" />
-      </mesh>
-      <mesh position={[0, -0.8, 0.01]}>
-        <boxGeometry args={[0.8, 1.5, 0.12]} />
-        <meshStandardMaterial color="#5D4E37" />
-      </mesh>
-      
-      {/* Door handle */}
-      <mesh position={[0.8, 0, 0.15]} rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.03, 0.03, 0.15]} />
-        <meshStandardMaterial color="#B8860B" />
-      </mesh>
-      
-      {/* Hinges */}
-      <mesh position={[-0.95, 1.5, 0.05]} rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.1]} />
-        <meshStandardMaterial color="#696969" />
-      </mesh>
-      <mesh position={[-0.95, -1.5, 0.05]} rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.05, 0.05, 0.1]} />
-        <meshStandardMaterial color="#696969" />
-      </mesh>
+      {/* 3D Door Model */}
+      <DoorModel />
       
       {/* 3D Hotspots */}
       {doorHotspots.map((hotspot) => (
@@ -121,28 +83,30 @@ const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setAc
           distanceFactor={5}
           transform
           sprite
+          zIndexRange={[0, 0]}
         >
           <div
             className="group"
             style={{
               transform: "translate(-50%, -50%)",
-              zIndex: activeHotspot === hotspot.id ? 30 : 10,
+              zIndex: 1,
             }}
           >
-            {/* Hotspot button - optimized for touch and visibility */}
+            {/* Hotspot button - lower z-index */}
             <button
               className={`w-4 h-4 rounded-full border border-white shadow-lg transition-all duration-300 pointer-events-auto flex items-center justify-center ${
                 activeHotspot === hotspot.id ? 'bg-luxury-accent scale-125' : 'bg-luxury-accent bg-opacity-90 hover:scale-110'
               }`}
               onClick={() => setActiveHotspot(activeHotspot === hotspot.id ? null : hotspot.id)}
               aria-label={hotspot.title}
+              style={{ zIndex: 1 }}
             >
               <span className="text-white text-[10px] font-bold leading-none">
                 {activeHotspot === hotspot.id ? "×" : "+"}
               </span>
             </button>
             
-            {/* Hotspot content - improved readability */}
+            {/* Hotspot content - higher z-index */}
             <div
               className={`absolute top-5 w-44 p-3 bg-white rounded-md shadow-xl border transition-all duration-300 ${
                 activeHotspot === hotspot.id
@@ -152,6 +116,7 @@ const DoorMesh: React.FC<{ rotation: number; activeHotspot: string | null; setAc
               style={{
                 left: hotspot.x > 0 ? "-176px" : "0",
                 borderTop: "2px solid #B8860B",
+                zIndex: 50,
               }}
             >
               <span className="text-luxury-accent text-[10px] font-medium uppercase tracking-wide block mb-1">Feature</span>
