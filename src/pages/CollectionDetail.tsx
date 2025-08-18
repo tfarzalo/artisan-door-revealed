@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { ChevronLeft, MapPin } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useCollectionBySlug, useSubcollectionsByCollectionId } from "@/hooks/useCollections";
@@ -124,18 +124,6 @@ const CollectionDetail = () => {
             </div>
           )}
 
-          {/* Action Buttons */}
-          {!isLoading && subCollections && (
-            <div className="flex flex-wrap gap-4 justify-center mt-16 mb-8">
-              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
-                Find My Door
-              </Button>
-              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
-                <MapPin className="w-5 h-5 mr-2" />
-                Find a Dealer
-              </Button>
-            </div>
-          )}
 
           {/* Results Counter */}
           {!isLoading && subCollections && (
