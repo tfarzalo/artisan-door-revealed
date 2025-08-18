@@ -24,11 +24,10 @@ const Index = () => {
   });
 
   const categories = [
-    { slug: 'signature', name: 'Signature' },
-    { slug: 'traditional', name: 'Traditional' },
-    { slug: 'modern', name: 'Modern' },
-    { slug: 'coastal', name: 'Coastal' },
-    { slug: 'wynstellar', name: 'Wynstellar' },
+    { slug: 'signature-doors', name: 'Signature' },
+    { slug: 'traditional-doors', name: 'Traditional' },
+    { slug: 'modern-doors', name: 'Modern' },
+    { slug: 'specialty-doors', name: 'Specialty' },
   ];
 
   return (
@@ -130,25 +129,22 @@ const Index = () => {
                           <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
                           
                           {/* Minimalist door patterns */}
-                          {collection.slug === 'signature' && (
+                          {collection.slug === 'signature-doors' && (
                             <div className="absolute inset-3 border border-gray-200 rounded-sm">
                               <div className="absolute top-2 left-2 right-2 h-8 border border-gray-200 rounded-sm"></div>
                               <div className="absolute bottom-2 left-2 right-2 h-8 border border-gray-200 rounded-sm"></div>
                             </div>
                           )}
-                          {collection.slug === 'traditional' && (
+                          {collection.slug === 'traditional-doors' && (
                             <div className="absolute inset-3">
                               <div className="absolute top-0 left-0 right-0 h-1/3 border border-gray-200"></div>
                               <div className="absolute bottom-0 left-0 right-0 h-1/3 border border-gray-200"></div>
                             </div>
                           )}
-                          {collection.slug === 'modern' && (
+                          {collection.slug === 'modern-doors' && (
                             <div className="absolute left-3 right-3 top-6 bottom-6 border-l-2 border-gray-300"></div>
                           )}
-                          {collection.slug === 'coastal' && (
-                            <div className="absolute inset-3 bg-gradient-to-b from-gray-100 to-transparent rounded-sm"></div>
-                          )}
-                          {collection.slug === 'wynstellar' && (
+                          {collection.slug === 'specialty-doors' && (
                             <div className="absolute inset-3">
                               <div className="absolute top-3 left-2 right-2 h-0.5 bg-gray-300"></div>
                               <div className="absolute bottom-3 left-2 right-2 h-0.5 bg-gray-300"></div>
