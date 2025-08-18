@@ -97,10 +97,10 @@ const Index = () => {
           {/* Hero Section */}
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6 tracking-tight">
-              Door Collections
+              Door Collection Categories
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Explore our carefully curated door collections, each featuring unique styles and craftsmanship to suit every architectural preference.
+              Explore our door collection categories, each containing specialized collections with unique styles and configurations to suit every architectural preference.
             </p>
             
             {/* Action Buttons */}
@@ -158,7 +158,7 @@ const Index = () => {
                         variant="outline" 
                         className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors"
                       >
-                        Browse Collection
+                        Browse Category
                       </Button>
                     </CardFooter>
                   </Card>
@@ -171,7 +171,7 @@ const Index = () => {
           {!isLoading && !error && (
             <div className="text-center mt-12">
               <p className="text-gray-600">
-                {collections?.length || 0} door collections available
+                {collections?.length || 0} door collection categories available
               </p>
             </div>
           )}

@@ -104,7 +104,7 @@ const StyleDetail = () => {
 
                   {/* Door Configurations for This Style */}
                   <div>
-                    <h3 className="text-xl font-medium text-gray-900 mb-4">Door Configurations</h3>
+                    <h3 className="text-xl font-medium text-gray-900 mb-4">Style Configurations</h3>
                     <div className="relative">
                       {/* Navigation Arrows */}
                       <Button
@@ -132,30 +132,70 @@ const StyleDetail = () => {
                         <ChevronRight className="w-4 h-4" />
                       </Button>
                       
-                      {/* Placeholder configurations */}
+                      {/* Style-specific configurations */}
                       <div 
                         ref={scrollContainerRef}
                         className="flex gap-4 overflow-x-auto scroll-smooth pb-8 snap-x snap-mandatory scrollbar-hide"
                         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                       >
-                        {[
-                          { name: "Single Panel", description: "Classic single panel design" },
-                          { name: "6 Lite", description: "Six glass panels arrangement" },
-                          { name: "Full Lite", description: "Full glass panel door" },
-                          { name: "Decorative Glass", description: "Custom decorative glass options" }
-                        ].map((config, index) => (
-                          <div key={index} className="flex-none w-48 snap-start">
-                            <div className="h-64 mb-3 bg-gray-100 rounded-lg flex items-center justify-center">
-                              <div className="text-center text-gray-500">
-                                <div className="text-4xl mb-2">🚪</div>
-                                <p className="text-sm">{config.name}</p>
+                        {(() => {
+                          const getConfigurationsForStyle = (styleName: string) => {
+                            switch (styleName?.toLowerCase()) {
+                              case 'burlwood iron':
+                                return [
+                                  { name: "Standard Size", description: "36\" x 80\" standard entry door", size: "36\" x 80\"" },
+                                  { name: "Oversized", description: "42\" x 96\" grand entrance", size: "42\" x 96\"" },
+                                  { name: "Double Entry", description: "72\" x 80\" double door set", size: "72\" x 80\"" },
+                                  { name: "Sidelight Combo", description: "With matching sidelights", size: "Complete Set" }
+                                ];
+                              case 'redwood iron':
+                                return [
+                                  { name: "Standard", description: "Classic 36\" x 80\" configuration", size: "36\" x 80\"" },
+                                  { name: "Tall Format", description: "36\" x 96\" extended height", size: "36\" x 96\"" },
+                                  { name: "Wide Entry", description: "42\" x 80\" wide opening", size: "42\" x 80\"" }
+                                ];
+                              case 'solid panel':
+                                return [
+                                  { name: "Raised Panel", description: "Traditional raised panel design", size: "36\" x 80\"" },
+                                  { name: "Flat Panel", description: "Contemporary flat panel style", size: "36\" x 80\"" },
+                                  { name: "Custom Texture", description: "Custom wood grain patterns", size: "Various" }
+                                ];
+                              case '6lt clear':
+                                return [
+                                  { name: "Clear Glass", description: "Standard clear glass panels", size: "36\" x 80\"" },
+                                  { name: "Low-E Glass", description: "Energy-efficient glazing", size: "36\" x 80\"" },
+                                  { name: "Tinted Glass", description: "Privacy tinted options", size: "36\" x 80\"" }
+                                ];
+                              case 'leaded 6lt':
+                                return [
+                                  { name: "Traditional Lead", description: "Classic leaded glass pattern", size: "36\" x 80\"" },
+                                  { name: "Decorative Lead", description: "Custom decorative patterns", size: "36\" x 80\"" },
+                                  { name: "Colored Glass", description: "Stained glass inserts", size: "36\" x 80\"" }
+                                ];
+                              default:
+                                return [
+                                  { name: "Standard Configuration", description: "Standard door configuration", size: "36\" x 80\"" },
+                                  { name: "Custom Size", description: "Custom sizing available", size: "Various" },
+                                  { name: "Hardware Options", description: "Multiple hardware finishes", size: "Standard" }
+                                ];
+                            }
+                          };
+                          
+                          return getConfigurationsForStyle(style?.name || '').map((config, index) => (
+                            <div key={index} className="flex-none w-48 snap-start">
+                              <div className="h-64 mb-3 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                                <div className="text-center text-gray-500 p-4">
+                                  <div className="text-4xl mb-2">{style?.icon || '🚪'}</div>
+                                  <p className="text-sm font-medium">{config.name}</p>
+                                  <p className="text-xs text-gray-400 mt-1">{config.size}</p>
+                                </div>
                               </div>
+                              <p className="text-sm text-gray-600 text-center font-medium px-1 leading-tight">
+                                {config.description}
+                              </p>
                             </div>
-                            <p className="text-sm text-gray-600 text-center font-medium px-1 leading-tight">
-                              {config.description}
-                            </p>
-                          </div>
-                        ))}
+                          ));
+                        })()}
                       </div>
                     </div>
                   </div>

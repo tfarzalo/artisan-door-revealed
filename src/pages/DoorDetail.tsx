@@ -152,8 +152,19 @@ const DoorDetail = () => {
                           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                         >
                           {doorImages.map((image, index) => {
-                            // Create a slug from the alt_text for navigation
-                            const styleSlug = image.alt_text?.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || `style-${index + 1}`;
+                            // Map alt_text to proper style slugs
+                            const getStyleSlug = (altText: string) => {
+                              if (altText.includes('Burlwood Iron')) return 'burlwood-iron';
+                              if (altText.includes('Redwood Iron')) return 'redwood-iron';
+                              if (altText.includes('Solid Panel')) return 'solid-panel';
+                              if (altText.includes('6LT') && !altText.includes('Leaded')) return '6lt-clear';
+                              if (altText.includes('Leaded 6LT')) return 'leaded-6lt';
+                              if (altText.includes('1LT')) return '1lt-full';
+                              if (altText.includes('3LT SDL')) return '3lt-sdl';
+                              return `style-${index + 1}`;
+                            };
+                            
+                            const styleSlug = getStyleSlug(image.alt_text || '');
                             
                             return (
                               <Link 
