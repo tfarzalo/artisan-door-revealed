@@ -1,11 +1,19 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
-import AppHeader from "@/components/AppHeader";
+import { ChevronLeft, MapPin } from "lucide-react";
 import { useSearchDoors } from "@/hooks/useDoors";
 import { useCollections } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const Search = () => {
   const location = useLocation();
@@ -29,50 +37,81 @@ const Search = () => {
   const isLoading = doorsLoading || collectionsLoading;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white text-luxury-text">
-      {/* Integrated header with search bar */}
-      <AppHeader />
-      
-      <main className="flex-1 pt-16 pb-16 px-5 animate-fade-in">
-        <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-white">
+      <main className="px-6 py-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb className="mb-8">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Search</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">Search Doors</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">
+              Find the perfect door for your home. Search by style, material, collection, or any feature that matters to you.
+            </p>
+            
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center mb-12">
+              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                Find My Door
+              </Button>
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+                <MapPin className="w-5 h-5 mr-2" />
+                Find a Dealer
+              </Button>
+            </div>
+          </div>
+
           {/* Search Results */}
           {isLoading ? (
-            <div className="mt-6 space-y-4">
+            <div className="space-y-4">
               <Skeleton className="h-8 w-32" />
               {[1, 2, 3, 4].map(i => (
                 <Skeleton key={i} className="h-24 w-full" />
               ))}
             </div>
           ) : (doorResults?.length || filteredCollections.length) > 0 ? (
-            <div className="mt-6">
-              <h3 className="text-lg font-medium mb-4">
-                Results ({(doorResults?.length || 0) + filteredCollections.length})
+            <div>
+              <h3 className="text-2xl font-light text-gray-900 mb-6">
+                Search Results ({(doorResults?.length || 0) + filteredCollections.length})
               </h3>
               <div className="space-y-4">
                 {doorResults?.map((door) => (
                   <Link to={`/door/${door.slug}`} key={door.id}>
-                    <div className="p-4 border border-luxury-text/10 rounded-md hover:bg-secondary/10 transition-colors">
+                    <div className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-medium">{door.name}</h4>
-                          <p className="text-sm text-luxury-text/70">
+                          <h4 className="text-xl font-light text-gray-900 mb-1">{door.name}</h4>
+                          <p className="text-gray-600">
                             {door.collection?.name} · {door.subcollection?.name}
                           </p>
                         </div>
-                        <ChevronLeft className="w-5 h-5 rotate-180" />
+                        <ChevronLeft className="w-6 h-6 rotate-180 text-gray-400" />
                       </div>
                     </div>
                   </Link>
                 ))}
                 {filteredCollections.map((collection) => (
                   <Link to={`/collection/${collection.slug}`} key={collection.id}>
-                    <div className="p-4 border border-luxury-text/10 rounded-md hover:bg-secondary/10 transition-colors">
+                    <div className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-medium">{collection.name}</h4>
-                          <p className="text-sm text-luxury-text/70">Collection</p>
+                          <h4 className="text-xl font-light text-gray-900 mb-1">{collection.name}</h4>
+                          <p className="text-gray-600">Collection</p>
                         </div>
-                        <ChevronLeft className="w-5 h-5 rotate-180" />
+                        <ChevronLeft className="w-6 h-6 rotate-180 text-gray-400" />
                       </div>
                     </div>
                   </Link>
@@ -80,45 +119,18 @@ const Search = () => {
               </div>
             </div>
           ) : query ? (
-            <div className="text-center py-8 text-luxury-text/70 animate-fade-in">
-              No results found for "{query}"
+            <div className="text-center py-16">
+              <h3 className="text-2xl font-light text-gray-900 mb-4">No results found</h3>
+              <p className="text-gray-600">No results found for "{query}". Try different keywords.</p>
             </div>
           ) : (
-            <div className="text-center py-8 text-luxury-text/70 animate-fade-in">
-              Enter a search term to find doors, collections, and styles
+            <div className="text-center py-16">
+              <h3 className="text-2xl font-light text-gray-900 mb-4">Start Your Search</h3>
+              <p className="text-gray-600">Enter a search term to find doors, collections, and styles</p>
             </div>
           )}
         </div>
       </main>
-      
-      {/* App-like bottom navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-luxury-text/10 px-5 py-2 flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <Link to="/">
-            <button className="text-xs text-luxury-text opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Collections
-            </button>
-          </Link>
-          <Link to="/search">
-            <button className="text-xs text-luxury-text opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-luxury-accent"></span>
-              Search
-            </button>
-          </Link>
-          <Link to="/filter">
-            <button className="text-xs text-luxury-text opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Filter
-            </button>
-          </Link>
-        </div>
-        <Link to="/contact">
-          <button className="text-xs px-3 py-2 bg-luxury-text text-white rounded">
-            Request Info
-          </button>
-        </Link>
-      </div>
     </div>
   );
 };

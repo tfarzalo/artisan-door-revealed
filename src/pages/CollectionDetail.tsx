@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useCollectionBySlug, useSubcollectionsByCollectionId } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const CollectionDetail = () => {
   const { collectionId } = useParams<{ collectionId: string }>();
@@ -33,42 +41,46 @@ const CollectionDetail = () => {
     <div className="min-h-screen bg-white">
       <main className="px-6 py-12">
         <div className="max-w-7xl mx-auto">
-          {/* Back Navigation */}
-          <div className="flex items-center mb-8">
-            <Link to="/">
-              <Button variant="ghost" size="icon" className="mr-3 hover:bg-gray-100">
-                <ChevronLeft className="w-5 h-5 text-gray-600" />
-              </Button>
-            </Link>
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Collections</p>
-              <h1 className="text-4xl md:text-5xl font-light text-gray-900 tracking-tight">
-                {collectionData?.name || "Collection"}
-              </h1>
-            </div>
-          </div>
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb className="mb-8">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{collectionData?.name || "Collection"}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
 
-          {/* Collection Description */}
-          {collectionData?.description && (
-            <div className="mb-12 max-w-3xl">
-              <p className="text-xl text-gray-600 leading-relaxed">
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">
+              {collectionData?.name || "Collection"}
+            </h1>
+            {collectionData?.description && (
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">
                 {collectionData.description}
               </p>
+            )}
+            
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center mb-12">
+              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                Find My Door
+              </Button>
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+                <MapPin className="w-5 h-5 mr-2" />
+                Find a Dealer
+              </Button>
             </div>
-          )}
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap gap-4 mb-16">
-            <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
-              Find My Door
-            </Button>
-            <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
-              <MapPin className="w-5 h-5 mr-2" />
-              Find a Dealer
-            </Button>
           </div>
+
           
-          {/* Door Models Grid */}
+          {/* Subcollections Grid */}
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
@@ -124,7 +136,7 @@ const CollectionDetail = () => {
           {!isLoading && subCollections && (
             <div className="text-center mt-12">
               <p className="text-gray-600">
-                {subCollections.length} door{subCollections.length !== 1 ? 's' : ''} in this collection
+                {subCollections.length} door subcollection{subCollections.length !== 1 ? 's' : ''} available
               </p>
             </div>
           )}

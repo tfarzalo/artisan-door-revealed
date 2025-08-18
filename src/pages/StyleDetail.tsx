@@ -5,6 +5,14 @@ import { useStyleBySlug } from "@/hooks/useStyles";
 import { useDoorBySlug } from "@/hooks/useDoors";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const StyleDetail = () => {
   const { doorSlug, styleSlug } = useParams<{ doorSlug: string; styleSlug: string }>();
@@ -46,28 +54,36 @@ const StyleDetail = () => {
     <div className="min-h-screen bg-white">
       <main className="px-6 py-12">
         <div className="max-w-7xl mx-auto">
-          {/* Back Navigation */}
-          <div className="flex items-center mb-8">
-            <Link to={door ? `/door/${door.slug}` : "/"}>
-              <Button variant="ghost" size="icon" className="mr-3 hover:bg-gray-100">
-                <ChevronLeft className="w-5 h-5 text-gray-600" />
-              </Button>
-            </Link>
-            <div>
-              {isLoading ? (
-                <Skeleton className="h-12 w-64" />
-              ) : (
-                <>
-                  <p className="text-sm text-gray-500 mb-1">
-                    {door?.collection?.name} / {door?.subcollection?.name} / {door?.name}
-                  </p>
-                  <h1 className="text-4xl md:text-5xl font-light text-gray-900 tracking-tight">
-                    {style?.name}
-                  </h1>
-                </>
-              )}
-            </div>
-          </div>
+          {/* Breadcrumb Navigation */}
+          {!isLoading && door && style && (
+            <Breadcrumb className="mb-8">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Home</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to={`/collection/${door.collection?.slug}`}>
+                      {door.collection?.name}
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to={`/door/${door.slug}`}>{door.name}</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{style.name}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          )}
 
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">

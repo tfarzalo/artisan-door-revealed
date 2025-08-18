@@ -2,12 +2,19 @@
 import React, { useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import AppHeader from "@/components/AppHeader";
 import { useDoorBySlug, useDoorImages, useDoorFeatures } from "@/hooks/useDoors";
 import DoorShowcase from "@/components/DoorShowcase";
 import InteractionHint from "@/components/InteractionHint";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const DoorDetail = () => {
   const [showInteractionHint, setShowInteractionHint] = useState(true);
@@ -57,40 +64,30 @@ const DoorDetail = () => {
     <div className="min-h-screen bg-white">
       <main className="px-6 py-12">
         <div className="max-w-7xl mx-auto">
-          {/* Back Navigation */}
-          <div className="flex items-center mb-8">
-            <Link to={door ? `/collection/${door.collection?.slug}` : "/"}>
-              <Button variant="ghost" size="icon" className="mr-3 hover:bg-gray-200">
-                <ChevronLeft className="w-5 h-5 text-gray-900" />
-              </Button>
-            </Link>
-            <div>
-              {isLoading ? (
-                <Skeleton className="h-12 w-64" />
-              ) : (
-                <>
-                  <div className="text-sm mb-1 flex items-center gap-1">
-                    <Link 
-                      to={`/collection/${door?.collection?.slug}`} 
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
-                    >
-                      {door?.collection?.name}
+          {/* Breadcrumb Navigation */}
+          {!isLoading && door && (
+            <Breadcrumb className="mb-8">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Home</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to={`/collection/${door.collection?.slug}`}>
+                      {door.collection?.name}
                     </Link>
-                    <span className="text-gray-400">/</span>
-                    <Link 
-                      to={`/collection/${door?.collection?.slug}/${door?.subcollection?.slug}`} 
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
-                    >
-                      {door?.subcollection?.name}
-                    </Link>
-                  </div>
-                  <h1 className="text-4xl md:text-5xl font-light text-gray-900 tracking-tight">
-                    {door?.name}
-                  </h1>
-                </>
-              )}
-            </div>
-          </div>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{door.name}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          )}
 
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">

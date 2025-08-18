@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Filter as FilterIcon } from "lucide-react";
+import { Filter as FilterIcon, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { 
@@ -10,7 +10,14 @@ import {
   AccordionItem,
   AccordionTrigger 
 } from "@/components/ui/accordion";
-import AppHeader from "@/components/AppHeader";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 interface FilterOption {
   id: string;
@@ -98,88 +105,93 @@ const Filter = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Consistent header */}
-      <AppHeader searchEnabled={false} />
-      
-      <main className="flex-1 pt-16 pb-16 px-5">
-        <div className="max-w-4xl mx-auto">
-          <div className="mt-6 mb-4 flex justify-between items-center">
-            <h2 className="text-2xl font-light text-gray-900">Filter Doors</h2>
-            <Button variant="ghost" onClick={clearFilters} className="text-gray-600 hover:text-gray-900">
-              Clear All
-            </Button>
+    <div className="min-h-screen bg-white">
+      <main className="px-6 py-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb className="mb-8">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Filter Doors</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">Filter Doors</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">
+              Narrow down your search with our advanced filtering options. Find doors by collection, material, size, and style preferences.
+            </p>
+            
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center mb-12">
+              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                Find My Door
+              </Button>
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+                <MapPin className="w-5 h-5 mr-2" />
+                Find a Dealer
+              </Button>
+            </div>
           </div>
-          
-          {/* Filter Accordion */}
-          <div className="mt-4">
-            <Accordion type="multiple" defaultValue={["collections"]}>
-              {Object.entries(filterCategories).map(([category, options]) => (
-                <AccordionItem value={category} key={category}>
-                  <AccordionTrigger className="text-base">
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2 pl-1">
-                      {options.map((option) => (
-                        <div key={option.id} className="flex items-center space-x-2">
-                          <Checkbox 
-                            id={`${category}-${option.id}`}
-                            checked={selectedFilters[category]?.includes(option.id)}
-                            onCheckedChange={() => toggleFilter(category, option.id)}
-                          />
-                           <label 
-                            htmlFor={`${category}-${option.id}`}
-                            className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
-                          >
-                            {option.label}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-          
-          {/* Apply Filters Button */}
-          <div className="mt-6 flex justify-center">
-            <Button className="w-full md:w-auto bg-gray-900 hover:bg-gray-800 text-white" disabled={countSelectedFilters() === 0}>
-              View {countSelectedFilters() > 0 ? `(${countSelectedFilters()} filters)` : "Results"}
-            </Button>
+
+          {/* Filter Controls */}
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-6 flex justify-between items-center">
+              <h2 className="text-3xl font-light text-gray-900">Filter Options</h2>
+              <Button variant="ghost" onClick={clearFilters} className="text-gray-600 hover:text-gray-900">
+                Clear All
+              </Button>
+            </div>
+            
+            {/* Filter Accordion */}
+            <div className="mt-4">
+              <Accordion type="multiple" defaultValue={["collections"]}>
+                {Object.entries(filterCategories).map(([category, options]) => (
+                  <AccordionItem value={category} key={category}>
+                    <AccordionTrigger className="text-base">
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-2 pl-1">
+                        {options.map((option) => (
+                          <div key={option.id} className="flex items-center space-x-2">
+                            <Checkbox 
+                              id={`${category}-${option.id}`}
+                              checked={selectedFilters[category]?.includes(option.id)}
+                              onCheckedChange={() => toggleFilter(category, option.id)}
+                            />
+                             <label 
+                              htmlFor={`${category}-${option.id}`}
+                              className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+                            >
+                              {option.label}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+            
+            {/* Apply Filters Button */}
+            <div className="mt-8 flex justify-center">
+              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white" disabled={countSelectedFilters() === 0}>
+                View {countSelectedFilters() > 0 ? `(${countSelectedFilters()} filters)` : "Results"}
+              </Button>
+            </div>
           </div>
         </div>
       </main>
-      
-      {/* App-like bottom navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-5 py-2 flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <Link to="/">
-            <button className="text-xs text-gray-600 opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Collections
-            </button>
-          </Link>
-          <Link to="/search">
-            <button className="text-xs text-gray-600 opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Search
-            </button>
-          </Link>
-          <Link to="/filter">
-            <button className="text-xs text-gray-900 opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-gray-900"></span>
-              Filter
-            </button>
-          </Link>
-        </div>
-        <Link to="/contact">
-          <button className="text-xs px-3 py-2 bg-gray-900 text-white rounded">
-            Request Info
-          </button>
-        </Link>
-      </div>
     </div>
   );
 };

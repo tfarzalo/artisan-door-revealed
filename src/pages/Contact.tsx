@@ -3,13 +3,21 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import AppHeader from "@/components/AppHeader";
 import { Link } from "react-router-dom";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { MapPin } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -39,17 +47,45 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white text-luxury-text">
-      <AppHeader />
-      
-      <main className="flex-1 pt-16 pb-16 px-5">
-        <div className="max-w-2xl mx-auto">
-          <div className="mb-8 mt-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-serif mb-3">Contact Us</h2>
-            <p className="text-luxury-text/70 max-w-md mx-auto">
-              Request information about our custom door collections
+    <div className="min-h-screen bg-white">
+      <main className="px-6 py-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Breadcrumb Navigation */}
+          <Breadcrumb className="mb-8">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Contact Us</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
+          {/* Hero Section */}
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">Contact Us</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">
+              Get in touch with our door specialists to discuss your project and receive personalized recommendations for your custom door needs.
             </p>
+            
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center mb-12">
+              <Button size="lg" className="px-8 py-6 text-lg font-medium bg-gray-900 hover:bg-gray-800 text-white">
+                Request Quote
+              </Button>
+              <Button size="lg" variant="outline" className="px-8 py-6 text-lg font-medium border-gray-300 text-gray-900 hover:bg-gray-50">
+                <MapPin className="w-5 h-5 mr-2" />
+                Find a Dealer
+              </Button>
+            </div>
           </div>
+
+          {/* Contact Form */}
+          <div className="max-w-2xl mx-auto">
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -113,43 +149,14 @@ const Contact = () => {
                 )}
               />
               
-              <Button type="submit" className="w-full bg-luxury-accent hover:bg-luxury-accent/90">
+              <Button type="submit" className="w-full bg-gray-900 hover:bg-gray-800 text-white">
                 Submit Request
               </Button>
             </form>
           </Form>
+          </div>
         </div>
       </main>
-      
-      {/* App-like bottom navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-luxury-text/10 px-5 py-2 flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <Link to="/">
-            <button className="text-xs text-luxury-text opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Collections
-            </button>
-          </Link>
-          <Link to="/search">
-            <button className="text-xs text-luxury-text opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Search
-            </button>
-          </Link>
-          <Link to="/filter">
-            <button className="text-xs text-luxury-text opacity-70 hover:opacity-100 flex flex-col items-center gap-1">
-              <span className="block h-1 w-8 bg-transparent"></span>
-              Filter
-            </button>
-          </Link>
-        </div>
-        <Link to="/contact">
-          <button className="text-xs px-3 py-2 bg-luxury-text text-white rounded opacity-100">
-            <span className="block h-1 w-8 bg-luxury-accent mb-1"></span>
-            Request Info
-          </button>
-        </Link>
-      </div>
     </div>
   );
 };
