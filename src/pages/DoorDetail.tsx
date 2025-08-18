@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import { useDoorBySlug, useDoorImages, useDoorFeatures } from "@/hooks/useDoors";
 import DoorShowcase from "@/components/DoorShowcase";
+import InteractionHint from "@/components/InteractionHint";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
@@ -97,7 +98,8 @@ const DoorDetail = () => {
               {isLoading ? (
                 <Skeleton className="aspect-[9/16] w-full rounded-lg" />
               ) : (
-                <div className="rounded-lg flex items-center justify-center">
+                <div className="relative rounded-lg flex items-center justify-center">
+                  <InteractionHint />
                   <DoorShowcase />
                 </div>
               )}
