@@ -35,7 +35,7 @@ const DoorHotspot: React.FC<DoorHotspotProps> = ({
       {/* Hotspot button */}
       <button
         className={cn(
-          "hotspot transition-all duration-300",
+          "hotspot transition-all duration-300 pointer-events-auto",
           isActive ? "bg-luxury-accent scale-110" : "bg-luxury-accent bg-opacity-70 hover:scale-110"
         )}
         onClick={onClick}

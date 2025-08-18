@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import DoorHotspot from "./DoorHotspot";
+import { Door3D } from "./Door3D";
 
 // Define the hotspot data
 interface Hotspot {
@@ -56,43 +57,10 @@ const DoorShowcase: React.FC = () => {
   return (
     <div className="doorway w-full max-w-md aspect-[9/16] mx-auto">
       <div className="relative w-full h-full">
-        {/* The main door image */}
-        <div className="absolute inset-0 bg-wood-dark rounded-t-lg">
-          {/* Door frame */}
-          <div className="absolute inset-0 border-6 md:border-8 border-wood-walnut rounded-t-lg">
-            {/* Door panel */}
-            <div className="absolute inset-2 md:inset-3 bg-gradient-to-b from-wood to-wood-dark rounded-sm flex items-center justify-center">
-              {/* Door center panel with decorative element */}
-              <div className="w-2/3 h-4/5 border-1 md:border-2 border-metal-brass rounded-sm flex items-center justify-center">
-                <div className="w-full h-full m-2 md:m-4 bg-wood bg-opacity-50 flex items-center justify-center">
-                  <div className="w-12 h-12 md:w-16 md:h-16 text-metal-brass opacity-50">
-                    {/* Decorative element */}
-                    <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-                      <path
-                        d="M12 3L4 9V21H20V9L12 3Z"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M9 21V15C9 13.8954 9.89543 13 11 13H13C14.1046 13 15 13.8954 15 15V21"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Door handle */}
-          <div className="absolute right-6 top-1/2 transform -translate-y-1/2 w-2 md:w-3 h-10 md:h-12 bg-metal-brass rounded-full"></div>
-          
-          {/* Hotspots */}
+        <Door3D />
+        
+        {/* Hotspot overlay */}
+        <div className="absolute inset-0 pointer-events-none">
           {doorHotspots.map((hotspot) => (
             <DoorHotspot
               key={hotspot.id}
