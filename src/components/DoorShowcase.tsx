@@ -51,12 +51,16 @@ const doorHotspots: Hotspot[] = [
   },
 ];
 
-const DoorShowcase: React.FC = () => {
+interface DoorShowcaseProps {
+  onInteraction?: () => void;
+}
+
+const DoorShowcase: React.FC<DoorShowcaseProps> = ({ onInteraction }) => {
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
   return (
     <div className="w-full h-full">
-      <Door3D />
+      <Door3D onInteraction={onInteraction} />
     </div>
   );
 };

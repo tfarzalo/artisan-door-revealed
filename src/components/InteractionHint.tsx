@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { RotateCcw, Hand } from "lucide-react";
 
-const InteractionHint = () => {
-  const [isVisible, setIsVisible] = useState(true);
+interface InteractionHintProps {
+  isVisible: boolean;
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 4000); // Hide after 4 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
-
+const InteractionHint = ({ isVisible }: InteractionHintProps) => {
   if (!isVisible) return null;
 
   return (

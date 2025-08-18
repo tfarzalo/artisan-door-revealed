@@ -1,5 +1,5 @@
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 const DoorDetail = () => {
+  const [showInteractionHint, setShowInteractionHint] = useState(true);
   const { doorSlug } = useParams<{ doorSlug: string }>();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
@@ -99,8 +100,8 @@ const DoorDetail = () => {
                 <Skeleton className="aspect-[9/16] w-full rounded-lg" />
               ) : (
                 <div className="relative rounded-lg flex items-center justify-center">
-                  <InteractionHint />
-                  <DoorShowcase />
+                  <InteractionHint isVisible={showInteractionHint} />
+                  <DoorShowcase onInteraction={() => setShowInteractionHint(false)} />
                 </div>
               )}
             </div>
