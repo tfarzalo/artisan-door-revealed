@@ -10,6 +10,7 @@ import CollectionDetail from "./pages/CollectionDetail";
 import StyleSelection from "./pages/StyleSelection";
 import DoorOptions from "./pages/DoorOptions";
 import DoorDetail from "./pages/DoorDetail";
+import StyleDetail from "./pages/StyleDetail";
 import Search from "./pages/Search";
 import Filter from "./pages/Filter";
 import Contact from "./pages/Contact";
@@ -44,6 +45,7 @@ const AnimatedRoutes = () => {
           <Route path="/collection/:collectionId/subcollection/:subcollectionId" element={<StyleSelection />} />
           <Route path="/collection/:collectionId/subcollection/:subcollectionId/style/:styleId" element={<DoorOptions />} />
           <Route path="/door/:doorSlug" element={<DoorDetail />} />
+          <Route path="/door/:doorSlug/style/:styleSlug" element={<StyleDetail />} />
           <Route path="/search" element={<Search />} />
           <Route path="/filter" element={<Filter />} />
           <Route path="/contact" element={<Contact />} />

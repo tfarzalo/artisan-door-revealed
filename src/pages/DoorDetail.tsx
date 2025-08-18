@@ -114,10 +114,10 @@ const DoorDetail = () => {
                     </p>
                   </div>
 
-                  {/* Door Configurations Carousel */}
+                  {/* Door Collection Styles Carousel */}
                   {doorImages && doorImages.length > 0 && (
                     <div>
-                      <h3 className="text-xl font-medium text-gray-900 mb-4">Door Configurations</h3>
+                      <h3 className="text-xl font-medium text-gray-900 mb-4">Door Collection Styles</h3>
                       <div className="relative">
                         {/* Navigation Arrows */}
                         <Button
@@ -151,20 +151,29 @@ const DoorDetail = () => {
                           className="flex gap-4 overflow-x-auto scroll-smooth pb-8 snap-x snap-mandatory scrollbar-hide"
                           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                         >
-                          {doorImages.map((image, index) => (
-                            <div key={image.id} className="flex-none w-48 snap-start">
-                              <div className="h-64 mb-3">
-                                <img
-                                  src={image.image_url}
-                                  alt={image.alt_text || `${door.name} configuration ${index + 1}`}
-                                  className="w-full h-full object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-                                />
-                              </div>
-                              <p className="text-sm text-gray-600 text-center font-medium px-1 leading-tight">
-                                {image.alt_text}
-                              </p>
-                            </div>
-                          ))}
+                          {doorImages.map((image, index) => {
+                            // Create a slug from the alt_text for navigation
+                            const styleSlug = image.alt_text?.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || `style-${index + 1}`;
+                            
+                            return (
+                              <Link 
+                                key={image.id} 
+                                to={`/door/${door.slug}/style/${styleSlug}`}
+                                className="flex-none w-48 snap-start group cursor-pointer"
+                              >
+                                <div className="h-64 mb-3">
+                                  <img
+                                    src={image.image_url}
+                                    alt={image.alt_text || `${door.name} style ${index + 1}`}
+                                    className="w-full h-full object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300"
+                                  />
+                                </div>
+                                <p className="text-sm text-gray-600 text-center font-medium px-1 leading-tight group-hover:text-gray-900 transition-colors">
+                                  {image.alt_text}
+                                </p>
+                              </Link>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
