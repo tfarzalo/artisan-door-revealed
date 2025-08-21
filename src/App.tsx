@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Index from "./pages/Index";
+import StandardDoors from "./pages/StandardDoors";
 import BuildersDoors from "./pages/BuildersDoors";
 import CustomDoors from "./pages/CustomDoors";
 import OptionsAddons from "./pages/OptionsAddons";
@@ -44,6 +45,7 @@ const AnimatedRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<Index />} />
+          <Route path="/standard-doors" element={<StandardDoors />} />
           <Route path="/builders-doors" element={<BuildersDoors />} />
           <Route path="/custom-doors" element={<CustomDoors />} />
           <Route path="/options-addons" element={<OptionsAddons />} />
