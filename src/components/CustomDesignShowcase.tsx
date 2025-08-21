@@ -72,7 +72,9 @@ export const CustomDesignShowcase: React.FC = () => {
   const activeOption = designOptions.find(option => option.id === activeTab);
 
   return (
-    <section className="py-16 bg-gradient-to-br from-background via-muted/30 to-background">
+    <section className="py-20 bg-gradient-to-br from-background via-muted/20 to-background relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-serif text-foreground mb-4">
@@ -85,59 +87,62 @@ export const CustomDesignShowcase: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-12 bg-muted/50 p-2 rounded-xl">
             {designOptions.map((option) => (
               <TabsTrigger
                 key={option.id}
                 value={option.id}
-                className="flex items-center gap-2 p-4 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                className="flex items-center gap-3 p-4 rounded-lg font-medium transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-muted/80"
               >
-                {option.icon}
-                <span className="hidden sm:inline">{option.title.split(' ')[1]}</span>
-                <span className="sm:hidden">{option.title.split(' ')[1]}</span>
+                <div className="p-1">
+                  {option.icon}
+                </div>
+                <span className="hidden sm:inline font-serif">{option.title.replace('Custom ', '')}</span>
+                <span className="sm:hidden font-serif">{option.title.split(' ')[1]}</span>
               </TabsTrigger>
             ))}
           </TabsList>
 
           {designOptions.map((option) => (
-            <TabsContent key={option.id} value={option.id} className="mt-8">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <TabsContent key={option.id} value={option.id} className="mt-12 animate-fade-in">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
                 <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="p-4 bg-primary/10 rounded-xl backdrop-blur-sm">
                       {option.icon}
                     </div>
-                    <h3 className="text-2xl font-serif text-foreground">
+                    <h3 className="text-3xl font-serif text-foreground">
                       {option.title}
                     </h3>
                   </div>
                   
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-muted-foreground mb-8 leading-relaxed text-lg">
                     {option.description}
                   </p>
 
-                  <div className="space-y-3 mb-8">
-                    <h4 className="font-semibold text-foreground">Key Features:</h4>
-                    <ul className="space-y-2">
+                  <div className="space-y-4 mb-10">
+                    <h4 className="font-serif text-lg text-foreground">Key Features:</h4>
+                    <div className="grid gap-3">
                       {option.features.map((feature, index) => (
-                        <li key={index} className="flex items-center gap-3 text-muted-foreground">
+                        <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
                           <ChevronRight className="w-4 h-4 text-primary flex-shrink-0" />
-                          {feature}
-                        </li>
+                          <span className="text-foreground">{feature}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
 
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-xl">
                     Explore {option.title}
-                    <ChevronRight className="w-4 h-4 ml-2" />
+                    <ChevronRight className="w-5 h-5 ml-2" />
                   </Button>
                 </div>
 
                 <div className="relative">
-                  <Card className="overflow-hidden">
+                  <Card className="overflow-hidden shadow-xl border-0 bg-gradient-to-br from-muted/30 to-background">
                     <CardContent className="p-0">
-                      <div className="h-96 bg-gradient-to-br from-muted via-background to-muted flex items-center justify-center">
+                      <div className="h-96 bg-gradient-to-br from-muted/40 via-background to-muted/20 flex items-center justify-center relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent"></div>
                         <div className="transform scale-150">
                           {option.id === "glass" && (
                             <div className="relative w-32 h-64 bg-white border-4 border-muted-foreground rounded-t-2xl shadow-xl">
