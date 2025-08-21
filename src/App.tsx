@@ -6,6 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import Index from "./pages/Index";
+import BuildersDoors from "./pages/BuildersDoors";
+import CustomDoors from "./pages/CustomDoors";
+import OptionsAddons from "./pages/OptionsAddons";
 import CollectionDetail from "./pages/CollectionDetail";
 import StyleSelection from "./pages/StyleSelection";
 import DoorOptions from "./pages/DoorOptions";
@@ -41,6 +44,9 @@ const AnimatedRoutes = () => {
       >
         <Routes location={location}>
           <Route path="/" element={<Index />} />
+          <Route path="/builders-doors" element={<BuildersDoors />} />
+          <Route path="/custom-doors" element={<CustomDoors />} />
+          <Route path="/options-addons" element={<OptionsAddons />} />
           <Route path="/collection/:collectionId" element={<CollectionDetail />} />
           <Route path="/collection/:collectionId/subcollection/:subcollectionId" element={<StyleSelection />} />
           <Route path="/collection/:collectionId/subcollection/:subcollectionId/style/:styleId" element={<DoorOptions />} />

@@ -4,13 +4,14 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCollections } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin } from "lucide-react";
-const Index = () => {
+
+const CustomDoors = () => {
   const {
     data: collections,
     isLoading,
     error
   } = useCollections();
+  
   const getCollectionIcon = (slug: string) => {
     switch (slug) {
       case 'signature-doors':
@@ -34,57 +35,26 @@ const Index = () => {
             <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
             <div className="absolute left-3 right-3 top-6 bottom-6 border-l-2 border-gray-300"></div>
           </div>;
-      case 'slimline-doors':
-        return <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
-            <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
-            <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-gray-300 transform -translate-x-1/2"></div>
-          </div>;
-      case 'luxe-pivot-doors':
-        return <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
-            <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
-            <div className="absolute inset-3">
-              <div className="absolute top-3 left-2 right-2 h-0.5 bg-gray-300"></div>
-              <div className="absolute bottom-3 left-2 right-2 h-0.5 bg-gray-300"></div>
-              <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-gray-400 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-            </div>
-          </div>;
-      case 'hurricane-doors':
-        return <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
-            <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
-            <div className="absolute inset-3 bg-gradient-to-b from-blue-100 to-transparent rounded-sm border-2 border-blue-200"></div>
-          </div>;
-      case 'interior-doors':
-        return <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
-            <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
-            <div className="absolute inset-3">
-              <div className="absolute top-2 left-2 right-1/2 bottom-2 border border-gray-200"></div>
-              <div className="absolute top-2 left-1/2 right-2 bottom-2 border border-gray-200"></div>
-            </div>
-          </div>;
-      case 'discontinued-clearance':
-        return <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
-            <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
-            <div className="absolute inset-3 border border-red-200 rounded-sm bg-red-50"></div>
-          </div>;
       default:
         return <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
             <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
           </div>;
     }
   };
+
   return <div className="min-h-screen bg-white">
       <main className="px-6 py-12">
         <div className="max-w-7xl mx-auto">
           {/* Navigation Menu */}
           <div className="flex justify-center mb-12">
             <nav className="flex space-x-8">
-              <Link to="/" className="text-lg text-[#cb7524] font-semibold border-b-2 border-[#cb7524] pb-1">
+              <Link to="/" className="text-lg text-gray-600 hover:text-[#cb7524] transition-colors">
                 Standard Doors
               </Link>
               <Link to="/builders-doors" className="text-lg text-gray-600 hover:text-[#cb7524] transition-colors">
                 Builder's Doors
               </Link>
-              <Link to="/custom-doors" className="text-lg text-gray-600 hover:text-[#cb7524] transition-colors">
+              <Link to="/custom-doors" className="text-lg text-[#cb7524] font-semibold border-b-2 border-[#cb7524] pb-1">
                 Custom Doors
               </Link>
               <Link to="/options-addons" className="text-lg text-gray-600 hover:text-[#cb7524] transition-colors">
@@ -95,8 +65,8 @@ const Index = () => {
           
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">Standard Entry Doors</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">Choose from over 300 Standard Door Styles, each being hand-assembled by skilled artisans and individually evaluated to meet our exceptional quality standards.</p>
+            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">Custom Doors</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">Unique, made-to-order doors crafted to your exact specifications. From architectural millwork to one-of-a-kind designs, we bring your vision to life.</p>
           </div>
           
           {/* Collections Grid */}
@@ -146,4 +116,5 @@ const Index = () => {
       </main>
     </div>;
 };
-export default Index;
+
+export default CustomDoors;
