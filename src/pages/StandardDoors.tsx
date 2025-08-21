@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCollections } from "@/hooks/useCollections";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Home } from "lucide-react";
 
 const StandardDoors = () => {
   const {
@@ -80,7 +81,11 @@ const StandardDoors = () => {
         <div className="max-w-7xl mx-auto">
           {/* Navigation Menu */}
           <div className="flex justify-center mb-12">
-            <nav className="flex space-x-8">
+            <nav className="flex items-center space-x-8">
+              <Link to="/" className="text-lg text-gray-600 hover:text-[#cb7524] transition-colors flex items-center gap-2">
+                <Home size={20} />
+                Home
+              </Link>
               <Link to="/standard-doors" className="text-lg text-[#cb7524] font-semibold border-b-2 border-[#cb7524] pb-1">
                 Standard Doors
               </Link>
