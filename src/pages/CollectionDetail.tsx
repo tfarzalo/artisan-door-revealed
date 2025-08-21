@@ -70,7 +70,7 @@ const CollectionDetail = () => {
           
           {/* Subcollections Grid */}
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                 <Card key={i} className="border-gray-200">
                   <CardContent className="p-6">
@@ -81,7 +81,7 @@ const CollectionDetail = () => {
               ))}
             </div>
           ) : subCollections && subCollections.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {subCollections.map((subCollection, index) => (
                 <Link to={`/door/${subCollection.slug}`} key={subCollection.id}>
                   <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 animate-fade-in opacity-0" 

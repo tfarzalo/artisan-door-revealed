@@ -70,7 +70,7 @@ const CustomDoors = () => {
           </div>
           
           {/* Collections Grid */}
-          {isLoading ? <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {isLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <Card key={i} className="border-gray-200">
                   <CardContent className="p-6">
                     <Skeleton className="h-64 w-full rounded-lg mb-6" />
@@ -80,7 +80,7 @@ const CustomDoors = () => {
             </div> : error ? <div className="text-center py-16">
               <h3 className="text-2xl font-light text-gray-900 mb-4">Unable to load collections</h3>
               <p className="text-gray-600">Please try again later.</p>
-            </div> : <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {collections?.map(collection => <Link to={`/collection/${collection.slug}`} key={collection.id}>
                   <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
                     <CardContent className="p-6">
