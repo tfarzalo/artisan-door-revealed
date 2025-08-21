@@ -65,53 +65,219 @@ const BuildersDoors = () => {
           
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">Builder's Doors</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed px-[20px] py-0">Cost-effective door solutions designed for volume projects and new construction. Quality-built doors that meet builder specifications and timelines.</p>
+            <h1 className="text-5xl md:text-6xl mb-6 tracking-tight text-[#cb7524] font-semibold">Rio Quick-Ship Doors</h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed px-[20px] py-0">Builder-focused door solutions that are competitively priced and ready to ship. Perfect for volume projects with convenient packaging and mix & match options.</p>
+            
+            {/* Key Features */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-[#cb7524] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold">$</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1">Competitively Priced</h3>
+                <p className="text-sm text-gray-600">Budget-friendly solutions</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-[#cb7524] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold">⚡</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1">Ready to Ship</h3>
+                <p className="text-sm text-gray-600">Quick delivery times</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-[#cb7524] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold">📦</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1">Conveniently Packaged</h3>
+                <p className="text-sm text-gray-600">Easy handling</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-[#cb7524] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold">🔧</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1">Mix & Match Options</h3>
+                <p className="text-sm text-gray-600">Flexible configurations</p>
+              </div>
+            </div>
           </div>
           
-          {/* Collections Grid */}
-          {isLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <Card key={i} className="border-gray-200">
-                  <CardContent className="p-6">
-                    <Skeleton className="h-64 w-full rounded-lg mb-6" />
-                    <Skeleton className="h-6 w-32 mx-auto" />
-                  </CardContent>
-                </Card>)}
-            </div> : error ? <div className="text-center py-16">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">Unable to load collections</h3>
-              <p className="text-gray-600">Please try again later.</p>
-            </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {collections?.map(collection => <Link to={`/collection/${collection.slug}`} key={collection.id}>
-                  <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
-                    <CardContent className="p-6">
-                      <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
-                        <div className="transform group-hover:scale-105 transition-transform">
-                          {getCollectionIcon(collection.slug)}
-                        </div>
+          {/* Rio Door Models Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {/* Rio Aberdeen 1LT */}
+            <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
+                  <div className="transform group-hover:scale-105 transition-transform">
+                    <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
+                      <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
+                      <div className="absolute inset-4 border border-gray-200 rounded-sm">
+                        <div className="absolute top-2 left-2 right-2 h-6 bg-blue-100 border border-blue-200 rounded-sm"></div>
                       </div>
-                      
-                      <h3 className="text-xl font-light text-gray-900 text-center mb-3">
-                        {collection.name}
-                      </h3>
-                      {collection.description && <p className="text-sm text-gray-600 text-center leading-relaxed line-clamp-2">
-                          {collection.description}
-                        </p>}
-                    </CardContent>
-                    <CardFooter className="px-6 pb-6">
-                      <Button variant="outline" className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors">
-                        Browse Category
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Link>)}
-            </div>}
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-light text-gray-900 text-center mb-3">
+                  Rio Aberdeen 1LT
+                </h3>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p><strong>Config:</strong> E-04</p>
+                  <p><strong>Sizes:</strong> 5'4″×6'8″, 5'4″×8'0″</p>
+                  <p><strong>Glass:</strong> Clear/Flemish IG Low E</p>
+                  <p><strong>Handing:</strong> RHIS, LHIS</p>
+                  <p><strong>Finish:</strong> Unfinished</p>
+                </div>
+              </CardContent>
+              <CardFooter className="px-6 pb-6">
+                <Button variant="outline" className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors">
+                  View Details
+                </Button>
+              </CardFooter>
+            </Card>
 
-          {/* Collections Counter */}
-          {!isLoading && !error && <div className="text-center mt-12">
-              <p className="text-gray-600">
-                {collections?.length || 0} door collection categories available
-              </p>
-            </div>}
+            {/* Rio Aberdeen 6LT SDL */}
+            <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
+                  <div className="transform group-hover:scale-105 transition-transform">
+                    <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
+                      <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
+                      <div className="absolute inset-4 grid grid-cols-2 gap-1">
+                        {[...Array(6)].map((_, i) => (
+                          <div key={i} className="bg-blue-100 border border-blue-200 rounded-sm"></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-light text-gray-900 text-center mb-3">
+                  Rio Aberdeen 6LT SDL
+                </h3>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p><strong>Config:</strong> E-04, E-17</p>
+                  <p><strong>Sizes:</strong> 5'4″×8'0″, 6'0″×8'0″</p>
+                  <p><strong>Glass:</strong> Clear/Flemish IG Low E</p>
+                  <p><strong>Handing:</strong> RHIS, LHIS</p>
+                  <p><strong>Finish:</strong> Unfinished</p>
+                </div>
+              </CardContent>
+              <CardFooter className="px-6 pb-6">
+                <Button variant="outline" className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors">
+                  View Details
+                </Button>
+              </CardFooter>
+            </Card>
+
+            {/* Rio Alexandria 4LT TDL */}
+            <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
+                  <div className="transform group-hover:scale-105 transition-transform">
+                    <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
+                      <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
+                      <div className="absolute inset-4 grid grid-cols-2 grid-rows-2 gap-1">
+                        {[...Array(4)].map((_, i) => (
+                          <div key={i} className="bg-amber-100 border border-amber-200 rounded-sm"></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-light text-gray-900 text-center mb-3">
+                  Rio Alexandria 4LT TDL
+                </h3>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p><strong>Config:</strong> E-01, E-04</p>
+                  <p><strong>Sizes:</strong> 3'0″×8'0″, 6'0″×8'0″</p>
+                  <p><strong>Glass:</strong> Clear Beveled/Flemish IG Low E</p>
+                  <p><strong>Handing:</strong> RHIS, LHIS</p>
+                  <p><strong>Finish:</strong> Unfinished (Chestnut available)</p>
+                </div>
+              </CardContent>
+              <CardFooter className="px-6 pb-6">
+                <Button variant="outline" className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors">
+                  View Details
+                </Button>
+              </CardFooter>
+            </Card>
+
+            {/* Rio Alexandria 6LT TDL */}
+            <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
+                  <div className="transform group-hover:scale-105 transition-transform">
+                    <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
+                      <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
+                      <div className="absolute inset-4 grid grid-cols-2 grid-rows-3 gap-1">
+                        {[...Array(6)].map((_, i) => (
+                          <div key={i} className="bg-amber-100 border border-amber-200 rounded-sm"></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-light text-gray-900 text-center mb-3">
+                  Rio Alexandria 6LT TDL
+                </h3>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p><strong>Config:</strong> E-01, E-04</p>
+                  <p><strong>Sizes:</strong> Multiple sizes available</p>
+                  <p><strong>Glass:</strong> Clear Beveled/Flemish IG Low E</p>
+                  <p><strong>Handing:</strong> RHIS, LHIS</p>
+                  <p><strong>Finish:</strong> Unfinished (Chestnut available)</p>
+                </div>
+              </CardContent>
+              <CardFooter className="px-6 pb-6">
+                <Button variant="outline" className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors">
+                  View Details
+                </Button>
+              </CardFooter>
+            </Card>
+
+            {/* Rio Alexandria 8LT TDL */}
+            <Card className="group border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg mb-6 overflow-hidden">
+                  <div className="transform group-hover:scale-105 transition-transform">
+                    <div className="relative w-20 h-40 bg-white border-2 border-gray-300 rounded-t-lg shadow-md">
+                      <div className="absolute right-2 top-1/2 w-2 h-5 bg-gray-800 rounded-full"></div>
+                      <div className="absolute inset-4 grid grid-cols-2 grid-rows-4 gap-1">
+                        {[...Array(8)].map((_, i) => (
+                          <div key={i} className="bg-amber-100 border border-amber-200 rounded-sm"></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-light text-gray-900 text-center mb-3">
+                  Rio Alexandria 8LT TDL
+                </h3>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p><strong>Config:</strong> E-04</p>
+                  <p><strong>Size:</strong> 5'4″×8'0″</p>
+                  <p><strong>Glass:</strong> Flemish IG Low E</p>
+                  <p><strong>Handing:</strong> RHIS, LHIS</p>
+                  <p><strong>Finish:</strong> Unfinished</p>
+                </div>
+              </CardContent>
+              <CardFooter className="px-6 pb-6">
+                <Button variant="outline" className="w-full text-gray-900 border-gray-300 hover:bg-gray-50 group-hover:border-gray-400 transition-colors">
+                  View Details
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+
+          {/* Product Counter */}
+          <div className="text-center mt-12">
+            <p className="text-gray-600">
+              5 Rio Quick-Ship door models available
+            </p>
+          </div>
         </div>
       </main>
     </div>;
