@@ -87,18 +87,18 @@ export const CustomDesignShowcase: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-12 bg-muted/50 p-2 rounded-xl">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-16 bg-muted/30 p-1 rounded-2xl border">
             {designOptions.map((option) => (
               <TabsTrigger
                 key={option.id}
                 value={option.id}
-                className="flex items-center gap-3 p-4 rounded-lg font-medium transition-all duration-300 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg hover:bg-muted/80"
+                className="flex items-center gap-3 p-4 rounded-xl font-medium transition-all duration-300 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:bg-muted/50"
               >
                 <div className="p-1">
                   {option.icon}
                 </div>
                 <span className="hidden sm:inline font-serif">{option.title.replace('Custom ', '')}</span>
-                <span className="sm:hidden font-serif">{option.title.split(' ')[1]}</span>
+                <span className="sm:hidden font-serif text-sm">{option.title.split(' ')[1]}</span>
               </TabsTrigger>
             ))}
           </TabsList>
@@ -106,12 +106,12 @@ export const CustomDesignShowcase: React.FC = () => {
           {designOptions.map((option) => (
             <TabsContent key={option.id} value={option.id} className="mt-12 animate-fade-in">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
+                <div className="order-1 lg:order-2">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 bg-primary/10 rounded-xl backdrop-blur-sm">
+                    <div className="p-4 bg-primary/10 rounded-2xl">
                       {option.icon}
                     </div>
-                    <h3 className="text-3xl font-serif text-foreground">
+                    <h3 className="text-3xl lg:text-4xl font-serif text-foreground">
                       {option.title}
                     </h3>
                   </div>
@@ -120,30 +120,32 @@ export const CustomDesignShowcase: React.FC = () => {
                     {option.description}
                   </p>
 
-                  <div className="space-y-4 mb-10">
-                    <h4 className="font-serif text-lg text-foreground">Key Features:</h4>
-                    <div className="grid gap-3">
-                      {option.features.map((feature, index) => (
-                        <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
-                          <ChevronRight className="w-4 h-4 text-primary flex-shrink-0" />
-                          <span className="text-foreground">{feature}</span>
-                        </div>
-                      ))}
+                  <div className="space-y-6 mb-10">
+                    <div>
+                      <h4 className="font-serif text-lg text-foreground mb-4">Key Features:</h4>
+                      <div className="space-y-3">
+                        {option.features.map((feature, index) => (
+                          <div key={index} className="flex items-start gap-3">
+                            <ChevronRight className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                            <span className="text-muted-foreground leading-relaxed">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-xl">
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-2xl font-semibold">
                     Explore {option.title}
                     <ChevronRight className="w-5 h-5 ml-2" />
                   </Button>
                 </div>
 
-                <div className="relative">
-                  <Card className="overflow-hidden shadow-xl border-0 bg-gradient-to-br from-muted/30 to-background">
-                    <CardContent className="p-0">
-                      <div className="h-96 bg-gradient-to-br from-muted/40 via-background to-muted/20 flex items-center justify-center relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent"></div>
-                        <div className="transform scale-150">
+                <div className="relative order-2 lg:order-1">
+                  <Card className="overflow-hidden shadow-2xl border-0 bg-card/50 backdrop-blur-sm">
+                    <CardContent className="p-8">
+                      <div className="h-80 flex items-center justify-center relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-muted/20 to-transparent rounded-lg" />
+                        <div className="transform scale-125 relative z-10">
                           {option.id === "glass" && (
                             <div className="relative w-32 h-64 bg-white border-4 border-muted-foreground rounded-t-2xl shadow-xl">
                               <div className="absolute right-4 top-1/2 w-3 h-8 bg-muted-foreground rounded-full"></div>

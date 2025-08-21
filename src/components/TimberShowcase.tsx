@@ -95,10 +95,9 @@ const timberOptions: TimberType[] = [
 
 export const TimberShowcase: React.FC = () => {
   const [selectedTimber, setSelectedTimber] = useState("mahogany");
-  const activeTimber = timberOptions.find(timber => timber.id === selectedTimber);
 
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="py-24 bg-muted/20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-serif text-foreground mb-4">

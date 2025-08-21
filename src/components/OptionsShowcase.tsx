@@ -133,14 +133,10 @@ const optionCategories: OptionCategory[] = [
 
 export const OptionsShowcase: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState("prefinishing");
-  const activeOption = optionCategories.find(option => option.id === selectedOption);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-background via-muted/20 to-background relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      
-      <div className="max-w-7xl mx-auto px-6 relative">
+    <section className="py-24 bg-background">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-serif text-foreground mb-4">
             Options & Add-ons
